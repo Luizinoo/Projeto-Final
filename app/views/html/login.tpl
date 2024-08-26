@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha segunda página com o BMVC</title>
+    <title>Login de Usuarios</title>
 </head>
 <body>
+    <h1>Login</h1>
+    <form action="/portal" method="post">
+        <label for="username">Nome:</label>
+        <input id="username" name="username" type="text" required /><br>
 
-    <h1>Minha página com interação de modelos :)</h1>
+        <label for="password">Senha:</label>
+        <input id="password" name="password" type="password" required /><br>
 
-    simbolo-% if transfered:
-        <div>
-            <h2>Dados do Usuário:</h2>
-            <p>Username: {{ current_user.username }} </p>
-            <p>Password: {{ current_user.password }} </p>
-        </div>
-    simbolo-% else:
-        <h2>Porém, desta vez não foram transferidas quaisquer informações ): </h2>
-    simbolo-% end
-
+        <input value="Login" type="submit" />
+    </form>
 </body>
 </html>
