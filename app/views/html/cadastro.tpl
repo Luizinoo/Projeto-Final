@@ -11,7 +11,7 @@
     
     <body>
     <h1>Login</h1>
-    <form action="/portal" method="post">
+    <form action="/cadastro" method="post">
         <label for="username">Username:</label>
         <input id="username" name="username" type="text" required /><br>
 

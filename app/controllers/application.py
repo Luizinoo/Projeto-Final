@@ -7,8 +7,14 @@ class Application():
     def __init__(self):
 
         self.pages = {
+            'home' : self.home,
             'membros': self.membros,
-            'login': self.login
+            'login': self.login,
+            'administracao' : self.administracao,
+            'cadastro' : self.cadastro,
+            'noticias' : self.noticias,
+            'produtos' : self.produtos,
+            'serviços' : self.setviços
         }
 
         self.__model= DataRecord()
@@ -26,6 +32,9 @@ class Application():
     def get_session_id(self):
         return request.get_cookie('session_id')
 
+
+    def home(self):
+        return template('app/views/html/home')
 
     def login(self):
         return template('app/views/html/login')
@@ -70,3 +79,18 @@ class Application():
         session_id = self.get_session_id()
         if session_id:
             self.__model.logout(session_id)
+
+    def administracao(self):
+        return template('app/views/html/administracao')
+
+    def cadastro(self):
+        return template('app/views/html/cadastro')
+
+    def noticias(self):
+        return template('app/views/html/noticias')
+
+    def produtos(self):
+        return template('app/views/html/produtos')
+
+    def serviços(self):
+        return template('app/views/html/serviços')

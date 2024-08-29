@@ -1,5 +1,5 @@
 from app.controllers.application import Application
-from bottle import Bottle, static_file, run
+from bottle import Bottle, static_file, run, request, response, redirect
 
 
 app = Bottle()
@@ -8,6 +8,10 @@ ctl = Application()
 
 #-----------------------------------------------------------------------------
 # Rotas:
+
+@app.route('/home', method='GET')
+def home():
+    return ctl.render('home')
 
 @app.route('/membros', methods=['GET'])
 @app.route('/membros/<username>', methods=['GET'])
@@ -31,9 +35,35 @@ def action_login():
     if session_id:
         response.set_cookie('session_id', session_id, httponly=True, \
         secure=True, max_age=3600)
-        redirect(f'/pagina/{username}')
+        redirect(f'/membros/{username}')
     else:
         return redirect('/login')
+
+@app.route('/logout', method='POST')
+def logout():
+    ctl.logout_user()
+    response.delete_cookie('session_id')
+    redirect('/login')
+
+@app.route('/administracao', method='GET')
+def administracao():
+    return ctl.render('administracao')
+
+@app.route('/cadastro', method='GET')
+def cadastro():
+    return ctl.render('cadastro')
+
+@app.route('/noticias', method='GET')
+def noticias():
+    return ctl.render('noticias')
+
+@app.route('/produtos', method='GET')
+def produtos():
+    return ctl.render('produtos')
+
+@app.route('/serviços', method='GET')
+def serviços():
+    return ctl.render('serviços')
 
 #-----------------------------------------------------------------------------
 

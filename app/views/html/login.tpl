@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login de Usuarios</title>
+    <title>Portal</title>
 </head>
 <body>
     <h1>Login</h1>
-    <form action="/portal" method="post">
+    <form action="/login" method="post">
         <label for="username">Nome:</label>
         <input id="username" name="username" type="text" required /><br>
 

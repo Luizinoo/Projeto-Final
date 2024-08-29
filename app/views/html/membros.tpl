@@ -12,5 +12,8 @@
             <h2>Dados do Usuário:</h2>
             <p>Username: {{ current_user.username }} </p>
         </div>
+    <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
 </body>
 </html>
