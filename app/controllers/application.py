@@ -14,7 +14,7 @@ class Application():
             'cadastro' : self.cadastro,
             'noticias' : self.noticias,
             'produtos' : self.produtos,
-            'serviços' : self.setviços
+            'serviços' : self.serviços
         }
 
         self.__model= DataRecord()
