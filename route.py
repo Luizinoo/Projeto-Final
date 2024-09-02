@@ -9,6 +9,10 @@ ctl = Application()
 #-----------------------------------------------------------------------------
 # Rotas:
 
+@app.route("/")
+def inicio():
+    redirect ('/home')
+
 @app.route('/home', method='GET')
 def home():
     return ctl.render('home')
