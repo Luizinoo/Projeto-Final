@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadastro</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/cadastro.css" />
+        <script src="/static/js/mobile-navbar.js"></script>
+    </head>
+        <body>
+            <header>
+            <nav>
+                <a class="logo" href="/home">Itauna</a>
+                <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+                </div>
+                <ul class="nav-list">
+                <li><a href="/administracao">Admin</a></li>
+                <li><a href="/noticias">Contato</a></li>
+                </ul>
+            </nav>
+            </header>
+            <main>
+                <div id="login">
+                    <form class="card" action="/cadastro" method="post">
+                        <div class="card-header">
+                            <h2>Cadastro</h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-content-area">
+                                <label for="usuario">Usuário</label>
+                                <input type="text" name="username" id="username" autocomplete="off">
+                            </div>
+                            <div class="card-content-area">
+                                <label for="password">Senha</label>
+                                <input type="password" name="password" id="password" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <input type="submit" value="Cadastrar" class="submit">
+                            <!-- <a href="#" class="recuperar_senha">Esqueceu a senha?</a> -->
+                        </div>
+                    </form>
+                </div>
+            </main>
+    </body>
+</html>

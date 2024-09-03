@@ -13,9 +13,16 @@ ctl = Application()
 def inicio():
     redirect ('/home')
 
+
+@app.route('/static/<filepath:path>')
+def serve_static(filepath):
+    return static_file(filepath, root='./app/static')
+
+
 @app.route('/home', method='GET')
 def home():
     return ctl.render('home')
+
 
 @app.route('/membros', methods=['GET'])
 @app.route('/membros/<username>', methods=['GET'])
@@ -43,27 +50,33 @@ def action_login():
     else:
         return redirect('/login')
 
+
 @app.route('/logout', method='POST')
 def logout():
     ctl.logout_user()
     response.delete_cookie('session_id')
     redirect('/login')
 
+
 @app.route('/administracao', method='GET')
 def administracao():
     return ctl.render('administracao')
+
 
 @app.route('/cadastro', method='GET')
 def cadastro():
     return ctl.render('cadastro')
 
+
 @app.route('/noticias', method='GET')
 def noticias():
     return ctl.render('noticias')
 
+
 @app.route('/produtos', method='GET')
 def produtos():
     return ctl.render('produtos')
+
 
 @app.route('/serviços', method='GET')
 def serviços():
