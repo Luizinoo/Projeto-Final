@@ -51,6 +51,25 @@ def action_login():
         return redirect('/login')
 
 
+@app.route('/cadastro', method='GET')
+def create_getter():
+    return ctl.render('cadastro')
+
+
+@app.route('/cadastro', method='POST')
+def cadastro_action():
+    username = request.forms.get('username')
+    password = request.forms.get('password')
+    ctl.insert_user(username, password)
+    return ctl.render('login')
+
+
+@app.route('/delete', method='POST')
+def delete_action():
+    ctl.delete_user()
+    return ctl.render('login')
+
+
 @app.route('/logout', method='POST')
 def logout():
     ctl.logout_user()

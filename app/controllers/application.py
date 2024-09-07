@@ -19,6 +19,10 @@ class Application():
 
         self.__model= DataRecord()
         self.__current_loginusername= None
+        
+        self.edited = None
+        self.removed = None
+        self.created= None
 
 
     def render(self,page,parameter=None):
@@ -86,6 +90,9 @@ class Application():
     def cadastro(self):
         return template('app/views/html/cadastro')
 
+    def delete(self):
+        current_user = self.getCurrentUserBySessionId()
+
     def noticias(self):
         return template('app/views/html/noticias')
 
@@ -94,3 +101,39 @@ class Application():
 
     def serviços(self):
         return template('app/views/html/serviços')
+
+    def insert_user(self, username, password):
+        self.created= self.__model.book(username, password)
+        redirect('/login')
+
+    def update_user(self, username, password):
+        self.edited = self.__model.setUser(username, password)
+        redirect('/login')
+
+    def getCurrentUserBySessionId(self):
+        session_id = request.get_cookie('session_id')
+        return self.__model.getCurrentUser(session_id)
+
+    def delete_user(self):
+        current_user = self.getCurrentUserBySessionId()
+        self.logout_user()
+        self.removed= self.__model.removeUser(current_user)
+        print(f'Valor de retorno de self.removed: {self.removed}')
+        redirect('/home')
+
+    #  def portal(self):
+    #     current_user = self.getCurrentUserBySessionId()
+    #     if current_user:
+    #         portal_render = template('app/views/html/portal', \
+    #         username=current_user.username, edited=self.edited, \
+    #         removed=self.removed, created=self.created)
+    #         self.edited = None
+    #         self.removed= None
+    #         self.created= None
+    #         return portal_render
+    #     portal_render = template('app/views/html/portal', username=None, \
+    #     edited=self.edited, removed=self.removed, created=self.created)
+    #     self.edited = None
+    #     self.removed= None
+    #     self.created= None
+    #     return portal_render

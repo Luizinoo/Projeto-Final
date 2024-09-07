@@ -22,6 +22,40 @@ class DataRecord():
             self.__user_accounts.append(UserAccount('Guest', '010101','101010'))
 
 
+    def __write(self):
+        try:
+            with open("app/controllers/db/user_accounts.json", "w") as arquivo_json:
+                user_data = [vars(user_account) for user_account in \
+                self.__user_accounts]
+                json.dump(user_data, arquivo_json)
+                print(f'Arquivo gravado com sucesso (Usuário)!')
+        except FileNotFoundError:
+            print('O sistema não conseguiu gravar o arquivo (Usuário)!')
+
+
+    def setUser(self,username,password):
+        for user in self.__user_accounts:
+            if username == user.username:
+                user.password= password
+                print(f'O usuário {username} foi editado com sucesso.')
+                self.__write()
+                return username
+        else:
+            print(f'O usuário {username} não foi identificado!')
+            return None
+
+
+    def removeUser(self,user):
+        if user in self.__user_accounts:
+            print(f'O usuário {user.username} foi encontrado no cadastro.')
+            self.__user_accounts.remove(user)
+            print(f'O usuário {user.username} foi removido do cadastro.')
+            self.__write()
+            return user.username
+        print(f'O usuário {user.username} não foi identificado!')
+        return None
+
+
     def book(self,username,password):
 
         new_user= UserAccount(username,password)
@@ -51,6 +85,13 @@ class DataRecord():
             if username == self.__authenticated_users[session_id].username:
                 return session_id
         return None  # Retorna None se o usuário não for encontrado
+
+
+    def book(self,username,password):
+        new_user= UserAccount(username,password)
+        self.__user_accounts.append(new_user)
+        self.__write()
+        return new_user.username
 
 
     def checkUser(self, username, password):
