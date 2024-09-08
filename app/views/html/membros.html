@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
     <title>Membros</title>
     <link rel="stylesheet" type="text/css" href="/static/css/membros.css" />
     <script src="../../static/js/mobile-navbar.js"></script>
@@ -10,39 +11,30 @@
 <body>
     <header>
         <nav>
-            <a class="logo" href="/home">Itauna</a>
+            <a class="logo" href="/home"><img src="/static/img/lg.png" alt=""></a>
             <div class="mobile-menu">
             <div class="line1"></div>
             <div class="line2"></div>
             <div class="line3"></div>
             </div>
             <ul class="nav-list">
-            <li><a class="navs" href="/membros">Membro</a></li>
-            <li><a class="navs" href="/administracao">Admin</a></li>
-            <li><a class="navs" href="/noticias">Contato</a></li>
+            <li><a href="/administracao">Adm</a></li>
+            <li><a href="/noticias">Contato</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <h1>Minha página com interação de modelos</h1>
+        <h1>Meu Perfil</h1>
             <div>
-                <h2>Dados do Usuário:</h2>
-                <p>Username: {{ current_user.username }} </p>
+                <h2>Dados:</h2>
+                <p>Nome: {{ current_user.username }} </p>
             </div>
-        <form action="/logout" method="post">
-            <button type="submit">Logout</button>
+        <form action="/Sair" method="post">
+            <button type="submit">Sair</button>
         </form>
         <form action="/delete" method="post">
-            <input value="Remover" type="submit" />
+            <input value="Apagar conta" type="submit" />
         </form>
-        <form action="/edit" method="get">
-            <button type="submit">Editar usuário</button>
-        </form>
-        % for member in accounts:
-               <li>{{produtos.username}}</li>
-        % end
-        <button><a class="opc" href="/produtos" >Produtos</a></button>
-        <button><a class="opc" href="/serviços" >Serviços</a></button>
     </main>
 </body>
 </html>
