@@ -4,7 +4,7 @@
 }
 
 a {
-    color: #fff;
+    color: #f4efef;
     text-decoration: none;
     transition: 0.3s;
 }
@@ -24,12 +24,12 @@ nav {
     justify-content: space-around;
     align-items: center;
     font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
-    background: #23232e;
+    background: #56e25b;
     height: 8vh;
 }
 
 main {
-    background: url("/static/img/bg.jpg") no-repeat center center;
+    background: url("/static/img/login.jpg")no-repeat center center;
     background-size: cover;
     height: 92vh;
 }
@@ -67,7 +67,7 @@ main {
         right: 0;
         width: 50vw;
         height: 92vh;
-        background: #23232e;
+        background: #36cf4b;
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
