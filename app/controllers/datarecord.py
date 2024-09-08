@@ -1,4 +1,5 @@
 from app.models.user_account import UserAccount
+from app.models.product import Product
 import json
 import uuid
 
@@ -7,7 +8,7 @@ class DataRecord():
 ##"Banco de dados JSON para o recurso Usuários"
 
     def __init__(self):
-
+        self.__product= []
         self.__user_accounts= []
         self.__authenticated_users = {}
         self.read()
@@ -106,3 +107,10 @@ class DataRecord():
     def logout(self, session_id):
         if session_id in self.__authenticated_users:
             del self.__authenticated_users[session_id] # Remove o usuário logado
+
+    def add_product(self, product, quant):
+        with open("app/controllers/db/product.json", "w") as arquivo_json:
+            prod_data = [vars(product) for product in \
+            self.__product]
+            json.dump(prod_data, arquivo_json)
+            print(f'Arquivo gravado com sucesso (Produto)!')

@@ -12,15 +12,6 @@
     <header>
         <nav>
             <a class="logo" href="/home"><img src="/static/img/lg.png" alt=""></a>
-            <div class="mobile-menu">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
-            </div>
-            <ul class="nav-list">
-                <li><a href="/administracao">Adm</a></li>
-                <li><a href="/noticias">Contato</a></li>
-            </ul>
         </nav>
     </header>
     <main>
@@ -29,12 +20,17 @@
                 <h2>Dados:</h2>
                 <p>Nome: {{ current_user.username }} </p>
             </div>
-        <form action="/Sair" method="post">
+        <form action="/logout" method="post">
             <button type="submit">Sair</button>
         </form>
         <form action="/delete" method="post">
             <input value="Apagar conta" type="submit" />
         </form>
+        <form action="/edit" method="get">
+            <button type="submit">Editar usuário</button>
+        </form>
+        <button><a class="opc" href="/produtos" >Produtos</a></button>
+        <button><a class="opc" href="/serviços" >Serviços</a></button>
     </main>
 </body>
 </html>

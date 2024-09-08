@@ -107,7 +107,10 @@ def noticias():
 
 
 @app.route('/produtos', method='GET')
-def produtos():
+def criar_action():
+    product = request.forms.get('product')
+    quant = request.forms.get('quant')
+    ctl.add_product(product, quant)
     return ctl.render('produtos')
 
 
