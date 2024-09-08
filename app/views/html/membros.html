@@ -17,8 +17,9 @@
             <div class="line3"></div>
             </div>
             <ul class="nav-list">
-            <li><a href="/administracao">Admin</a></li>
-            <li><a href="/noticias">Contato</a></li>
+            <li><a class="navs" href="/membros">Membro</a></li>
+            <li><a class="navs" href="/administracao">Admin</a></li>
+            <li><a class="navs" href="/noticias">Contato</a></li>
             </ul>
         </nav>
     </header>
@@ -34,6 +35,14 @@
         <form action="/delete" method="post">
             <input value="Remover" type="submit" />
         </form>
+        <form action="/edit" method="get">
+            <button type="submit">Editar usuário</button>
+        </form>
+        % for member in accounts:
+               <li>{{produtos.username}}</li>
+        % end
+        <button><a class="opc" href="/produtos" >Produtos</a></button>
+        <button><a class="opc" href="/serviços" >Serviços</a></button>
     </main>
 </body>
 </html>

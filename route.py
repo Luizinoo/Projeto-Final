@@ -24,13 +24,9 @@ def home():
     return ctl.render('home')
 
 
-@app.route('/membros', methods=['GET'])
 @app.route('/membros/<username>', methods=['GET'])
 def action_pagina(username=None):
-    if not username:
-        return ctl.render('membros')
-    else:
-        return ctl.render('membros',username)
+    return ctl.render('membros',username)
 
 
 @app.route('/login', method='GET')
@@ -56,12 +52,30 @@ def create_getter():
     return ctl.render('cadastro')
 
 
+@app.route('/confirma', method='GET')
+def confirma():
+    return ctl.render('confirma')
+
+
 @app.route('/cadastro', method='POST')
 def cadastro_action():
     username = request.forms.get('username')
     password = request.forms.get('password')
     ctl.insert_user(username, password)
-    return ctl.render('login')
+    return ctl.render('confirma')
+
+
+@app.route('/edit', method='GET')
+def edit_getter():
+    return ctl.render('edit')
+
+
+@app.route('/edit', method='POST')
+def edit_action():
+    username = request.forms.get('username')
+    password = request.forms.get('password')
+    ctl.update_user(username, password)
+    return ctl.render('edit')
 
 
 @app.route('/delete', method='POST')

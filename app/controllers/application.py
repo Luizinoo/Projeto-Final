@@ -8,10 +8,12 @@ class Application():
 
         self.pages = {
             'home' : self.home,
+            'edit' : self.edit,
             'membros': self.membros,
             'login': self.login,
             'administracao' : self.administracao,
             'cadastro' : self.cadastro,
+            'confirma' : self.confirma,
             'noticias' : self.noticias,
             'produtos' : self.produtos,
             'serviços' : self.serviços
@@ -39,6 +41,9 @@ class Application():
 
     def home(self):
         return template('app/views/html/home')
+
+    def confirma(self):
+        return template('app/views/html/confirma')
 
     def login(self):
         return template('app/views/html/login')
@@ -104,11 +109,15 @@ class Application():
 
     def insert_user(self, username, password):
         self.created= self.__model.book(username, password)
-        redirect('/login')
+        redirect('/confirma')
 
     def update_user(self, username, password):
         self.edited = self.__model.setUser(username, password)
         redirect('/login')
+
+    def edit(self):
+        current_user = self.getCurrentUserBySessionId()
+        return template('app/views/html/edit', current_user=current_user)
 
     def getCurrentUserBySessionId(self):
         session_id = request.get_cookie('session_id')
@@ -120,20 +129,3 @@ class Application():
         self.removed= self.__model.removeUser(current_user)
         print(f'Valor de retorno de self.removed: {self.removed}')
         redirect('/home')
-
-    #  def portal(self):
-    #     current_user = self.getCurrentUserBySessionId()
-    #     if current_user:
-    #         portal_render = template('app/views/html/portal', \
-    #         username=current_user.username, edited=self.edited, \
-    #         removed=self.removed, created=self.created)
-    #         self.edited = None
-    #         self.removed= None
-    #         self.created= None
-    #         return portal_render
-    #     portal_render = template('app/views/html/portal', username=None, \
-    #     edited=self.edited, removed=self.removed, created=self.created)
-    #     self.edited = None
-    #     self.removed= None
-    #     self.created= None
-    #     return portal_render
