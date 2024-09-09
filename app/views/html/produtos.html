@@ -38,5 +38,23 @@
                     </form>
                 </div>
             </main>
+        <!-- Elemento de Áudio -->
+        <audio id="success-sound" src="static/img/som.mp3"></audio>
+        <script>
+            // Captura o formulário e o elemento de áudio
+            const form = document.querySelector('.card');
+            const successSound = document.getElementById('success-sound');
+
+            // Adiciona um evento ao formulário para quando ele for submetido
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Previne o envio padrão do formulário (para testes)
+
+                // Tocar o som após o cadastro
+                successSound.play();
+
+                // Aqui você pode adicionar a lógica para enviar o formulário, por exemplo, via AJAX
+                alert('Cadastro realizado com sucesso!');
+            });
+        </script>
     </body>
 </html>
