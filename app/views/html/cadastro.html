@@ -1,51 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
-
-        <title>Cadastro</title>
-        <link rel="stylesheet" type="text/css" href="/static/css/cadastro.css" />
-        <script src="/static/js/mobile-navbar.js" defer></script>
-    </head>
-        <body>
-            <header>
-            <nav>
-                <a class="logo" href="/home">  <img src="/static/img/lg.png" alt=""></a>
-                <div class="mobile-menu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
+    <title>Cadastro</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/cadastro.css" />
+    <script src="/static/js/mobile-navbar.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/home">
+                <img src="/static/img/lg.png" alt="Logo">
+            </a>
+            <div class="mobile-menu">
                 <div class="line1"></div>
                 <div class="line2"></div>
                 <div class="line3"></div>
-                </div>
-                <ul class="nav-list">
+            </div>
+            <ul class="nav-list">
                 <li><a href="/administracao">Admin</a></li>
                 <li><a href="/noticias">Contato</a></li>
-                </ul>
-            </nav>
-            </header>
-            <main>
-                <div id="login">
-                    <form class="card" action="/cadastro" method="post">
-                        <div class="card-header">
-                            <h2>Cadastro</h2>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-content-area">
-                                <label for="usuario">Usuário</label>
-                                <input type="text" name="username" id="username" autocomplete="off">
-                            </div>
-                            <div class="card-content-area">
-                                <label for="password">Senha</label>
-                                <input type="password" name="password" id="password" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <input type="submit" value="Cadastrar" class="submit">
-                            <!-- <a href="#" class="recuperar_senha">Esqueceu a senha?</a> -->
-                        </div>
-                    </form>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="login">
+            <form class="card" action="/cadastro" method="post">
+                <div class="card-header">
+                    <h2>CADASTRE-SE:</h2>
                 </div>
-            </main>
-    </body>
+                <div class="card-content">
+                    <div class="card-content-area">
+                        <label for="username">Usuário</label>
+                        <input type="text" name="username" id="username" autocomplete="off" required>
+                    </div>
+                    <div class="card-content-area">
+                        <label for="password">Senha</label>
+                        <input type="password" name="password" id="password" autocomplete="off" required>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input type="submit" value="Cadastrar" class="submit">
+                </div>
+            </form>
+            
+            <footer class="bottom-bar">
+                <!-- Conteúdo da barra, como links ou informações de copyright -->
+                 © 2024 Sua Empresa. Todos os direitos reservados.
+            </footer>
+        </div>
+    </main>
+    <!-- Elemento de Áudio -->
+    <audio id="success-sound" src="static/img/som.mp3"></audio>
+    <script>
+        // Captura o formulário e o elemento de áudio
+        const form = document.querySelector('.card');
+        const successSound = document.getElementById('success-sound');
+
+        // Adiciona um evento ao formulário para quando ele for submetido
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário (para testes)
+
+            // Tocar o som após o cadastro
+            successSound.play();
+
+            // Aqui você pode adicionar a lógica para enviar o formulário, por exemplo, via AJAX
+            alert('Cadastro realizado com sucesso!');
+        });
+    </script>
+</body>
 </html>

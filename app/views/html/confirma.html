@@ -1,31 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Cadastro</title>
-        <link rel="stylesheet" type="text/css" href="/static/css/confirma.css" />
-    </head>
-
-    <body>
-        <header>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
+    <title>Cadastro</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/cadastro.css" />
+    <script src="/static/js/mobile-navbar.js" defer></script>
+</head>
+<body>
+    <header>
         <nav>
-            <a class="logo" href="/">Itauna</a>
+            <a class="logo" href="/home"><img src="/static/img/lg.png" alt=""></a>
             <div class="mobile-menu">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
             </div>
             <ul class="nav-list">
-            <li><a href="/administracao">Admin</a></li>
-            <li><a href="/noticias">Contato</a></li>
+                <li><a href="/administracao">Admin</a></li>
+                <li><a href="/noticias">Contato</a></li>
             </ul>
         </nav>
-        </header>
-        <main>
-            <h1>Cadastro Efetuado com sucesso</h1>
-            <h1>Vá para a pagina inicial</h1>
-        </main>
-        <script src="/app/static/js/mobile-navbar.js"></script>
-    </body>
+    </header>
+    <main>
+        <div id="login">
+            <form class="card" id="cadastro-form" action="/cadastro" method="post">
+                <div class="card-header">
+                    <h2>Cadastro</h2>
+                </div>
+                <div class="card-content">
+                    <div class="card-content-area">
+                        <label for="usuario">Usuário</label>
+                        <input type="text" name="username" id="username" autocomplete="off">
+                    </div>
+                    <div class="card-content-area">
+                        <label for="password">Senha</label>
+                        <input type="password" name="password" id="password" autocomplete="off">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input type="submit" value="Cadastrar" class="submit">
+                </div>
+            </form>
+            <footer class="bottom-bar">
+             <!-- Conteúdo da barra, como links ou informações de copyright -->
+              © 2024 Sua Empresa. Todos os direitos reservados.
+         </footer>
+        </div>
+    </main>
+    </script>
+</body>
 </html>

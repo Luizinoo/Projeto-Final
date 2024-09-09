@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box; /* Adiciona para lidar melhor com margens e espaçamentos */
 }
 
 a {
@@ -24,14 +25,17 @@ nav {
     justify-content: space-around;
     align-items: center;
     font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
-    background: #23232e;
-    height: 8vh;
+    background: #3eea20;
+    height: 5vh;
 }
 
 main {
-    background: url("/static/img/bg.jpg") no-repeat center center;
+    background: url("/static/img/login.jpg") no-repeat center center;
     background-size: cover;
     height: 92vh;
+    color: #f9fef8f3;
+    font-size: 20px;
+    font-weight: 100;
 }
 
 .nav-list {
@@ -67,7 +71,7 @@ main {
         right: 0;
         width: 50vw;
         height: 92vh;
-        background: #23232e;
+        background: #28ff20;
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
@@ -85,6 +89,8 @@ main {
 
 .nav-list.active {
     transform: translateX(0);
+    /* Aplique a animação aos itens ao ativar */
+    transition: transform 0.3s ease-out;
 }
 
 @keyframes navLinkFade {
@@ -96,6 +102,21 @@ main {
         opacity: 1;
         transform: translateX(0);
     }
+}
+
+.bottom-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%; /* Corrigido para ocupar a largura correta */
+    height: 2vh;
+    background: #2fd745ec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    color: rgb(243, 243, 247);
+    z-index: 999;
 }
 
 .mobile-menu.active .line1 {

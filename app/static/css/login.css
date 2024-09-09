@@ -29,13 +29,27 @@ nav {
     align-items: center;
     font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
     background: #37db34;
-    height: 8vh;
+    height: 5vh;
 }
 
 main {
     background: url("/static/img/login.jpg") no-repeat center center;
     background-size: cover;
     height: 92vh;
+}
+.bottom-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%; /* Corrigido para ocupar a largura correta */
+    height: 2vh;
+    background: #2fd745ec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    color: rgb(243, 243, 247);
+    z-index: 999;
 }
 
 .nav-list {
@@ -129,16 +143,18 @@ body {
 }
 
 .card {
-    background-color: rgba(55, 132, 33, 0.608);
+    background-color: rgba(143, 251, 113, 0.275);
     padding: 60px;
     border-radius: 5px;
     width:300px;
 }
 
 .card-header {
-    padding-bottom: 35px;
-    opacity: 2;
-    color: #16e90796;
+    padding-bottom: 50px;
+    opacity: 5;
+    color: #14aa09;
+    font-size: 20px;
+
 }
 
 .card-header::after {

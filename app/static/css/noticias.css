@@ -25,11 +25,11 @@ nav {
     align-items: center;
     font-family: system-ui, apple-system, Helvetica, Arial, sans-serif;
     background: #22d33a;
-    height: 8vh;
+    height: 5vh;
 }
 
 main {
-    background: url("/static/img/login.jpg") no-repeat center center;
+    background: url("/static/img/adm.png") no-repeat center center;
     background-size: cover;
     height: 92vh;
 }
@@ -96,6 +96,21 @@ main {
         opacity: 1;
         transform: translateX(0);
     }
+}
+.bottom-bar {
+    position: fixed; /* Fixa o elemento na tela */
+    left: 0; /* Alinha a barra com a borda esquerda da tela */
+    bottom: 0; /* Posiciona na parte inferior da tela */
+    width: 150%; /* Faz a barra ocupar toda a largura da tela */
+    height: 2vh; /* Define a altura da barra como 5% da altura da janela de visualização */
+    background: #2fd745ec; /* Define a cor de fundo, mesma que você usou no nav */
+    display: flex; /* Usa flexbox para organizar o conteúdo */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif; /* Define a fonte */
+    color: rgb(243, 243, 247); /* Define a cor do texto como branca para contraste */
+    z-index: 999; /* Garante que a barra fique acima de outros elementos na página */
+
 }
 
 .mobile-menu.active .line1 {
