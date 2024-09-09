@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
-
-        <title>Cadastro</title>
-        <link rel="stylesheet" type="text/css" href="/static/css/produtos.css" />
-        <script src="/static/js/mobile-navbar.js" defer></script>
-    </head>
-        <body>
-            <header>
-            <nav>
-                <a class="logo" href="/home">  <img src="/static/img/lg.png" alt=""></a>
-            </nav>
-            </header>
-            <main>
-                <div id="login">
-                    <form class="card" action="/criar" method="post">
-                        <div class="card-header">
-                            <h2>Adicione seu Produtos:</h2>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-content-area">
-                                <label for="usuario">Item:</label>
-                                <input type="text" name="username" id="username" autocomplete="off">
-                            </div>
-                            <div class="card-content-area">
-                                <label for="password">Quantidade:</label>
-                                <input type="password" name="password" id="password" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <input type="submit" value="Cadastrar" class="submit">
-                            <!-- <a href="#" class="recuperar_senha">Esqueceu a senha?</a> -->
-                        </div>
-                    </form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico" />
+    <title>Cadastro de Produtos</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/produtos.css" />
+    <script src="/static/js/mobile-navbar.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/home">
+                <img src="/static/img/lg.png" alt="Logo">
+            </a>
+        </nav>
+    </header>
+    <main>
+        <div id="login">
+            <form class="card" action="/produtos" method="post">
+                <div class="card-header">
+                    <h2>Adicione seu Produto:</h2>
                 </div>
-            </main>
-    </body>
+                <div class="card-content">
+                    <div class="card-content-area">
+                        <label for="product">Produto:</label>
+                        <input type="text" name="product" id="product" autocomplete="off" required>
+                    </div>
+                    <div class="card-content-area">
+                        <label for="quant">Quantidade:</label>
+                        <input type="number" name="quant" id="quant" autocomplete="off" required>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input type="submit" value="Cadastrar" class="submit">
+                    <!-- <a href="#" class="recuperar_senha">Esqueceu a senha?</a> -->
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
 </html>

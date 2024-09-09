@@ -1,4 +1,5 @@
-class Product():
-    def __init__(self, name, password):
-        self.product= product
-        self.quant= quant
+# app/models/product.py
+class Product:
+    def __init__(self, name, quantity):
+        self.name = name
+        self.quantity = quantity
