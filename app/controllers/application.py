@@ -21,7 +21,8 @@ class Application():
 
         self.__model= DataRecord()
         self.__current_loginusername= None
-        
+
+        self.product = None
         self.edited = None
         self.removed = None
         self.created= None
@@ -95,6 +96,9 @@ class Application():
     def cadastro(self):
         return template('app/views/html/cadastro')
 
+    def produto(self):
+        return template('app/views/html/produto')
+
     def delete(self):
         current_user = self.getCurrentUserBySessionId()
 
@@ -129,3 +133,6 @@ class Application():
         self.removed= self.__model.removeUser(current_user)
         print(f'Valor de retorno de self.removed: {self.removed}')
         redirect('/home')
+
+    def add_product(self, product, quant):
+        self.product= self.__model.add_product(product, quant)

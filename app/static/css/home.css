@@ -143,13 +143,13 @@ main {
     border: 3px solid rgb(8, 19, 231);
 }
 .texto .botoes button.n-overlay:hover{
-    color: rgb(10, 14, 245);
-    background-color: rgb(91, 10, 252);
-    animation: vibrar 0.9s ease-in-out infinite both;
+    color: rgb(10, 245, 45);
+    background-color: rgb(137, 234, 19);
+    animation: vibrar 0.3s ease-in-out infinite both;
 }
 .texto .botoes button.overlay{
-    background: rgb(71, 14, 255);
-    color: rgb(64, 17, 203);
+    background: rgb(25, 211, 18);
+    color: rgb(12, 1, 1);
     animation: vibrar 0.9s ease-in-out infinite both;
 }
 @keyframes vibrar {
