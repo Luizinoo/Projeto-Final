@@ -17,12 +17,12 @@
         <h1>Minha página com interação de modelos</h1>
             <div>
                 <h2>Dados do Usuário:</h2>
-                <p>Username: {{ current_user.username }} </p>
+                <p>Username: {{ user.username }} </p>
             </div>
             <form action="/edit" method="post">
               <label for="username">Nome:</label>
               <input id="username" name="username" type="text"
-                value="{{ current_user.username }}" readonly /><br>
+                value="{{ user.username }}" readonly /><br>
               <label for="password">Senha:</label>
               <input id="password" name="password" type="password" required /><br>
             </br>
@@ -30,6 +30,14 @@
                 <input value="Editar" type="submit" />
               </div>
             </form>
+            % if user.isAdmin():
+              <h4>Como super usuário, você pode editar qualquer um dos usuários cadastrados:</h4>
+              <div id="editDisplay">
+                  % for member in accounts:
+                    <li>{{ member.username }}</li>
+                  % end
+              </div>
+            % end
     </main>
 </body>
 </html>

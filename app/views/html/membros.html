@@ -7,7 +7,7 @@
     <title>Membros</title>
     <link rel="stylesheet" type="text/css" href="/static/css/membros.css" />
     <script src="/static/js/mobile-navbar.js" defer></script>
-    <script src="/static/js/profile.js" defer></script>
+    <!-- <script src="/static/js/profile.js" defer></script> -->
 </head>
 <body>
     <header>
@@ -17,17 +17,10 @@
     </header>
     <main>
         <div id="profile-section">
-            <div id="profile-photo">
-                <img src="{{ current_user.profile_image or '/static/img/default-profile.jpg' }}" alt="Foto de Perfil" id="profile-img">
-                <form action="/upload_photo" method="post" enctype="multipart/form-data">
-                    <input type="file" name="photo" accept="image/*">
-                    <button type="submit">Atualizar Foto</button>
-                </form>
-            </div>
             <h1>Meu Perfil</h1>
             <div>
-                <h2>Dados:</h2>
-                <p>Nome: {{ current_user.username }}</p>
+                <h2>Dados do {{"Super" if current_user.isAdmin() else ""}} Usuário:</h2>
+                <p>Username: {{current_user.username}} </p>
             </div>
             <form action="/logout" method="post">
                 <button type="submit">Sair</button>
