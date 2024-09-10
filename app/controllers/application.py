@@ -17,6 +17,7 @@ class Application:
             'confirma': self.confirma,
             'noticias': self.noticias,
             'produtos': self.produtos,
+            'edit_product': self.edit_product,
             'serviços': self.serviços
         }
 
@@ -74,9 +75,11 @@ class Application:
     def membros(self):
         self.update_users_list()
         current_user = self.getCurrentUserBySessionId()
+        self.__users.read_products()
+        products = self.__users.get_products()
         if current_user:
-            return template('app/views/html/membros', transfered=True, current_user=current_user)
-        return template('app/views/html/membros', transfered=False)
+            return template('app/views/html/membros', transfered=True, current_user=current_user, products=products)
+        return template('app/views/html/membros', transfered=False, products=products)
 
     def is_authenticated(self, username):
         current_user = self.getCurrentUserBySessionId()
@@ -126,9 +129,23 @@ class Application:
         response.delete_cookie('session_id')
         self.update_users_list()
 
-    def add_product(self, product_name, quant):
-        self.__users.add_product(product_name, quant)
-        redirect('/produtos')
+    def add_product(self, name, quantity):
+        self.__users.add_product(name, quantity)
+        redirect('/membros')
+
+    def edit_product(self, name):
+        product = self.__users.get_product_by_name(name)
+        if product:
+            return template('app/views/html/edit_product', product=product)
+        redirect('/membros')
+
+    def update_product(self, old_name, new_name, quant):
+        self.__users.update_product(old_name, new_name, quant)
+        redirect('/membros')
+
+    def delete_product(self, name):
+        self.__users.remove_product(name)
+        redirect('/membros')
 
     # def upload_photo(self):
     #     upload = request.files.get('photo')
