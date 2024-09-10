@@ -4,7 +4,6 @@
 }
 
 a {
-    color: #fff;
     text-decoration: none;
     transition: 0.3s;
 }
@@ -33,22 +32,24 @@ nav {
 }
 
 main {
-    background: url("/static/img/login.jpg") no-repeat center center;
+    background: url("/static/img/a11.jpg") no-repeat center center;
     background-size: cover;
     height: 92vh;
 }
+
+
 .bottom-bar {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%; /* Corrigido para ocupar a largura correta */
     height: 2vh;
-    background: #2fd745ec;
+    background: #43d72fec;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
-    color: rgb(243, 243, 247);
+    color: rgb(5, 5, 5);
     z-index: 999;
 }
 
@@ -67,14 +68,6 @@ main {
     cursor: pointer;
 }
 
-.mobile-menu div {
-    width: 32px;
-    height: 2px;
-    background: #ecf3ed;
-    margin: 8px;
-    transition: 0.3s;
-}
-
 @media (max-width: 999px) {
     body {
         overflow-x: hidden;
@@ -85,7 +78,7 @@ main {
         right: 0;
         width: 50vw;
         height: 92vh;
-        background: #e2e2e7;
+        background: #1f1fc6;
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
@@ -93,8 +86,8 @@ main {
         transition: transform 0.3s ease-in;
     }
     .nav-list li {
-        margin-left: 20;
-        opacity:20;
+        margin-left: 20px; /* Corrigido para adicionar a unidade */
+        opacity: 0.8; /* Corrigido a opacidade */
     }
     .mobile-menu {
         display: block;
@@ -131,7 +124,7 @@ main {
 body {
     padding: 0;
     margin: 0;
-    background-color: #239802;
+    background-color: #06ff06e8;
 }
 
 #login {
@@ -139,74 +132,84 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Georgia, Times, 'Times New Roman', serif;
 }
 
 .card {
-    background-color: rgba(143, 251, 113, 0.275);
-    padding: 60px;
-    border-radius: 5px;
-    width:300px;
+    padding: 60px; /* Espaçamento interno */
+    border-radius: 15px; /* Cantos arredondados */
+    width: 300px; /* Largura do card */
+    border: 5px solid #00ff4c; /* Borda preta */
+    position: relative; /* Permite posicionar o pseudo-elemento relativo a essa área */
+
+    /* Adicionando a marca d'água */
+    background-image: url('/static/img/ba.jpg'); /* Caminho da imagem de marca d'água */
+    background-size: cover; /* Cobre o card com a imagem */
+    background-repeat: no-repeat; /* Não repete a imagem */
+    background-position: center; /* Centraliza a imagem */
+    opacity: 0.9; /* Ajuste a transparência da imagem de fundo conforme necessário */
 }
 
 .card-header {
-    padding-bottom: 50px;
-    opacity: 5;
-    color: #14aa09;
-    font-size: 20px;
-
-}
-
-.card-header::after {
-    content: "";
-    width: 100px;
-    height: px;
-    background-color: #fff;
-    display: block;
-    margin-top: -17px;
-    margin-left: -5px;
-}
-
-.card-content label {
-    color: #fff;
-    font-size: 16px;
-    opacity: 0.8;
+    padding-bottom: 50px; /* Espaçamento inferior */
+    opacity: 0.9; /* Transparência do texto */
+    color: #26f30b; /* Cor do texto */
+    font-size: 26px; /* Tamanho da fonte */
+    text-align: center; /* Centraliza o texto horizontalmente */
+    display: flex; /* Utiliza Flexbox para centralização */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    padding: 20px; /* Adiciona espaçamento interno */
 }
 
 .card-content-area {
-    display: flex;
-    flex-direction: column;
-    padding:12px 0;
+    display: flex; /* Usa o layout flexível */
+    flex-direction: column; /* Organiza os itens na direção vertical */
+    padding: 19px 0; /* Adiciona espaçamento interno superior e inferior */
+    transition: all 0.3s ease; /* Suavização das mudanças ao interagir */
+    color: #2709ec; /* Cor do texto preta forte */
+    font-size: 20px; /* Tamanho da fonte maior */
+    opacity: 0.9; /* Transparência do texto */
+    margin: 10px 0; /* Adiciona espaçamento externo */
+    line-height: 1.5; /* Aumenta o espaçamento entre linhas */
+    text-align: left; /* Alinha o texto ao canto esquerdo */
+    position: relative; /* Permite posicionar o pseudo-elemento relativo a essa área */
+
 }
 
 .card-content-area input {
-    margin-top: 10px;
-    padding:0 5px;
+    margin-top: 20px;
+    padding: 9px; /* Corrigido */
     background-color: transparent;
-    border:none;
-    border-bottom: 1px solid #e1e1e1;
+    border: none;
+    border-bottom: 2.1px solid #06fc06;
     outline: none;
-    color: #4b04af;
+    color: #ff3503;
+}
+.card-content-area:hover {
+    color: #00ff33; /* Cor do texto ao passar o mouse (exemplo de vermelho) */
 }
 
 .card-footer {
-    display: flex;
-    flex-direction: column;
+    text-align: center; /* Centraliza o conteúdo dentro do card-footer */
 }
 
-.card-footer .submit{
-    width: 100%;
-    height: 40px;
-    background-color: #10db24;
-    border:none;
-    color:#e1e1e1;
-    margin: 10px 0;
+.card-footer .submit {
+    width: 60%; /* Largura do botão */
+    max-width: 250px; /* Define uma largura máxima para o botão */
+    height: 50px; /* Altura do botão */
+    background-color: #00ff11; /* Cor de fundo */
+    border: 4px solid #0a0ef1; /* Borda preta em toda a volta */
+    border-radius: 8px; /* Arredondamento das bordas */
+    color: #0b16e6; /* Cor do texto */
+    margin: 28px auto; /* Margem para espaçamento externo e centralização horizontal */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    transition: all 0.3s ease; /* Suavização das mudanças ao interagir */
+    display: block; /* Faz o botão ocupar a largura definida e centraliza horizontalmente */
 }
 
-.card-footer a {
-    text-align: center;
-    font-size: 12px;
-    opacity: 0.8;
-    color: #fff;
-    text-decoration: none;
+.card-footer .submit:hover {
+    background-color: #10ff18; /* Cor de fundo ao passar o mouse */
+    border-color: #07e70e; /* Cor da borda ao passar o mouse */
+    transform: scale(1.05); /* Leve aumento ao passar o mouse */
 }

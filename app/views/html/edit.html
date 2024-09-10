@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Membros</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico" />
+    <title>AtualizarDados</title>
     <link rel="stylesheet" type="text/css" href="/static/css/edit.css" />
     <script src="../../static/js/mobile-navbar.js"></script>
 </head>
 <body>
     <header>
         <nav>
-            <a class="logo" href="/home">Itauna</a>
+            <a class="logo" href="/home"><img src="/static/img/lg.png" alt="Logo"></a>
+            <a class="logo" href="/home"></a>
             <ul class="nav-list">
             <li><a href="/administracao">Admin</a></li>
             <li><a href="/noticias">Contato</a></li>
@@ -18,22 +20,25 @@
         </nav>
     </header>
     <main>
-        <h1>Minha página com interação de modelos</h1>
+        <h1><br> Atualizar Dados </h1>
             <div>
                 <h2>Dados do Usuário:</h2>
-                <p>Username: {{ current_user.username }} </p>
             </div>
             <form action="/edit" method="post">
-              <label for="username">Nome:</label>
+              <label for="username">Novo Nome:</label>
               <input id="username" name="username" type="text"
                 value="{{ current_user.username }}" readonly /><br>
-              <label for="password">Senha:</label>
+              <label for="password">Nova Senha:</label>
               <input id="password" name="password" type="password" required /><br>
             </br>
               <div class= "button-container">
-                <input value="Editar" type="submit" />
+                <input value="Salvar" type="submit" />
               </div>
             </form>
     </main>
+    <footer class="bottom-bar">
+      <!-- Conteúdo da barra, como links ou informações de copyright -->
+       © 2024 Sua Empresa. Todos os direitos reservados.
+  </footer>
 </body>
 </html>

@@ -1,31 +1,172 @@
-/* Estilos para a seção do perfil */
+/* Estilos Gerais */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fffefe;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 18px;
+    background-color: #37db34;
+}
+
+.logo img {
+    height: 30px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.header-buttons form {
+    display: inline;
+}
+
+.header-buttons button {
+    background-color: #fff;
+    color: #0313ef;
+    border: 3px solid #3804f4;
+    padding: 4px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header-buttons button:hover {
+    background-color: #091cec;
+    color: #fff;
+}
+
+.change-photo-form {
+    display: flex;
+    align-items: center;
+}
+
+.change-photo-form input[type="file"] {
+    display: none;
+}
+
+.change-photo-form label,
+.change-photo-form button {
+    cursor: pointer;
+}
+
 #profile-section {
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid #025610;
+    padding: 15px;
+    margin: 20px;
+    background: #a8dea87e;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgb(2, 100, 7);
+    width: 200px;
+    position: fixed; /* Alterado para fixed */
+    top: 50px; /* Ajustado para o topo */
+    left: 8px; /* Ajustado para a esquerda */
 }
 
 #profile-photo {
-    position: relative;
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
 }
 
-#profile-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+#profile-photo img {
+    border-radius: 70%;
+    width: 80px;
+    height: 90px;
     object-fit: cover;
-    border: 2px solid #ccc;
+    border: 4px solid #0d6f02;
 }
 
-form input[type="file"] {
-    display: block;
-    margin: 10px auto;
+.profile-info {
+    text-align: center;
 }
 
-form button {
-    margin-top: 10px;
+.profile-info h2 {
+    font-size: 23px;
+    color: #050505;
+    margin: 0;
 }
 
-/* Outros estilos... */
+.profile-info h3 {
+    font-size: 20px;
+    color: #064e0d;
+    margin: 0;
+}
+
+/* Adiciona a frase "ÓLA, eu sou o cooperado" abaixo da foto */
+#profile-photo {
+    margin-bottom: 10px;
+}
+
+.logout-form {
+    margin-top: 8px;
+}
+
+.logout-form button {
+    background-color: #dd7c7c;
+    color: #030203;
+    border: 2px solid #030c03;
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout-form button:hover {
+    background-color: #f70808;
+    color: #000000;
+
+}
+
+#product-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#product-items li {
+    background: #dd0c0c;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.956);
+}
+
+/* Botão "Lista de Produtos" */
+#product-button {
+    position: fixed;
+    bottom: 40px; /* Distância do fundo */
+    left: 20px; /* Distância da esquerda */
+    background-color: #3d0bf3;
+    color: #fff;
+    border: none;
+    padding: 7px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#product-button:hover {
+    background-color: #03dd12;
+}
+
+/* Footer */
+footer.bottom-bar {
+    background-color: #06b603;
+    color: #070505;
+    text-align: center;
+    padding: 2px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

@@ -6,48 +6,55 @@
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico" />
     <title>Membros</title>
     <link rel="stylesheet" type="text/css" href="/static/css/membros.css" />
-    <script src="/static/js/mobile-navbar.js" defer></script>
     <script src="/static/js/profile.js" defer></script>
 </head>
 <body>
     <header>
         <nav>
             <a class="logo" href="/home"><img src="/static/img/lg.png" alt="Logo"></a>
+            <div class="header-buttons">
+                <form action="/upload_photo" method="post" enctype="multipart/form-data" class="change-photo-form">
+                    <input type="file" name="photo" accept="image/*" id="photo-input">
+                    <button type="submit">Trocar Foto</button>
+                </form>
+                <form action="/edit" method="get">
+                    <button type="submit">Atualizar Cadastro</button>
+                </form>
+                <form action="/delete" method="post">
+                    <button type="submit">Apagar Conta</button>
+                </form>
+            </div>
         </nav>
     </header>
     <main>
         <div id="profile-section">
             <div id="profile-photo">
-                <img src="{{ current_user.profile_image or '/static/img/default-profile.jpg' }}" alt="Foto de Perfil" id="profile-img">
-                <form action="/upload_photo" method="post" enctype="multipart/form-data">
-                    <input type="file" name="photo" accept="image/*">
-                    <button type="submit">Atualizar Foto</button>
-                </form>
+                <img src="{{ current_user.profile_image or '/static/img/yara.jpg' }}" alt="Foto de Perfil" id="profile-img">
+                <div class="profile-info">
+                    <h2>👩‍🌾Cooperado👨‍🌾</h2>
+                    <h3> <br> {{ current_user.username }}</h3>
+                </div>
             </div>
-            <h1>Meu Perfil</h1>
-            <div>
-                <h2>Dados:</h2>
-                <p>Nome: {{ current_user.username }}</p>
-            </div>
-            <form action="/logout" method="post">
+            <form action="/logout" method="post" class="logout-form">
                 <button type="submit">Sair</button>
             </form>
-            <form action="/delete" method="post">
-                <input value="Apagar conta" type="submit" />
-            </form>
-            <form action="/edit" method="get">
-                <button type="submit">Editar usuário</button>
-            </form>
-            <button><a class="opc" href="/produtos">Produtos</a></button>
-            <button><a class="opc" href="/serviços">Serviços</a></button>
         </div>
 
         <div id="product-list">
-            <h2>Lista de Produtos</h2>
             <ul id="product-items">
                 <!-- Lista de produtos será inserida dinamicamente aqui -->
             </ul>
         </div>
     </main>
+    <footer class="bottom-bar">
+        © 2024 Sua Empresa. Todos os direitos reservados.
+    </footer>
+    <!-- Adicione o botão para a lista de produtos -->
+<button id="product-button">Lista de Produtos</button>
+
 </body>
 </html>
+
+
+
+
