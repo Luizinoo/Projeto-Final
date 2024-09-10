@@ -134,6 +134,7 @@ class UserRecord():
             product.name = new_name
             product.quantity = quant
             self.__write_products()
+
     
     # def update_user_profile_image(self, user):
     #     for existing_user in self.__user_accounts:

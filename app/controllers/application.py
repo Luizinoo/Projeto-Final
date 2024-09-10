@@ -107,7 +107,7 @@ class Application:
         self.created= self.__users.book(username, password,[])
         print(f'Usuário criado: {self.created}')
         self.update_account_list()
-        # redirect('/login')
+        redirect('/login')
 
     def update_user(self, username, password):
         self.edited = self.__users.setUser(username, password)
