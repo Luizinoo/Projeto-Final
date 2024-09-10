@@ -110,13 +110,30 @@ class UserRecord():
         except FileNotFoundError:
             print('O sistema não conseguiu gravar o arquivo (Produto)!')
 
-    def add_product(self, product_name, quant):
-        new_product = Product(product_name, quant)
+    def add_product(self, name, quantity):
+        new_product = Product(name, quantity)
         self.__product.append(new_product)
         self.__write_products()
 
     def get_products(self):
         return self.__product
+
+    def remove_product(self, name):
+        self.__product = [p for p in self.__product if p.name != name]
+        self.__write_products()
+
+    def get_product_by_name(self, name):
+        for product in self.__product:
+            if product.name == name:
+                return product
+        return None
+
+    def update_product(self, old_name, new_name, quant):
+        product = self.get_product_by_name(old_name)
+        if product:
+            product.name = new_name
+            product.quantity = quant
+            self.__write_products()
     
     # def update_user_profile_image(self, user):
     #     for existing_user in self.__user_accounts:

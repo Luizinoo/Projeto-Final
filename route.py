@@ -88,14 +88,27 @@ def produtos_getter():
 
 @app.route('/produtos', method='POST')
 def produtos_action():
-    product_name = request.forms.get('product')
-    quant = request.forms.get('quant')
-    ctl.add_product(product_name, quant)
-    return redirect('/produtos')
+    name = request.forms.get('product')
+    quantity = request.forms.get('quant')
+    ctl.add_product(name, quantity)
+    return redirect('/membros')
 
-@app.route('/serviços', method='GET')
-def serviços():
-    return ctl.render('serviços')
+@app.route('/delete_product/<name>', method='POST')
+def delete_product_action(name):
+    ctl.delete_product(name)
+    return redirect('/membros')
+
+@app.route('/edit_product/<name>', method='POST')
+def edit_product_getter(name):
+    return ctl.edit_product(name)
+
+@app.route('/update_product', method='POST')
+def update_product_action():
+    old_name = request.forms.get('old_name')
+    new_name = request.forms.get('new_name')
+    quant = request.forms.get('quant')
+    ctl.update_product(old_name, new_name, quant)
+    return redirect('/membros')
 
 #-----------------------------------------------------------------------------
 

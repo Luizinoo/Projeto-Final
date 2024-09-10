@@ -34,12 +34,28 @@
             <button><a class="opc" href="/produtos">Adicionar Produtos</a></button>
         </div>
 
-        <div id="product-list">
-            <h2>Lista de Produtos</h2>
-            <ul id="product-items">
-                <!-- Lista de produtos será inserida dinamicamente aqui -->
-            </ul>
-        </div>
+<h2>Lista de Produtos</h2>
+<table>
+    <tr>
+        <th>Nome do Produto</th>
+        <th>Quantidade</th>
+        <th>Ações</th>
+    </tr>
+    % for product in products:
+    <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>
+            <form action="/edit_product/{{ product.name }}" method="POST" style="display:inline;">
+                <button type="submit">Editar</button>
+            </form>
+            <form action="/delete_product/{{ product.name }}" method="POST" style="display:inline;">
+                <button type="submit">Excluir</button>
+            </form>
+        </td>
+    </tr>
+    % end
+</table>
     </main>
 </body>
 </html>
