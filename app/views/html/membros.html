@@ -7,17 +7,13 @@
     <title>Membros</title>
     <link rel="stylesheet" type="text/css" href="/static/css/membros.css" />
     <script src="/static/js/mobile-navbar.js" defer></script>
-    <script src="/static/js/profile.js" defer></script>
+    <!-- <script src="/static/js/profile.js" defer></script> -->
 </head>
 <body>
     <header>
         <nav>
             <a class="logo" href="/home"><img src="/static/img/lg.png" alt="Logo"></a>
             <div class="header-buttons">
-                <form action="/upload_photo" method="post" enctype="multipart/form-data" class="change-photo-form">
-                    <input type="file" name="photo" accept="image/*" id="photo-input">
-                    <button type="submit">Trocar Foto</button>
-                </form>
                 <form action="/edit" method="get">
                     <button type="submit">Atualizar Cadastro</button>
                 </form>
@@ -29,13 +25,6 @@
     </header>
     <main>
         <div id="profile-section">
-            <div id="profile-photo">
-                <img src="{{ current_user.profile_image or '/static/img/default-profile.jpg' }}" alt="Foto de Perfil" id="profile-img">
-                <form action="/upload_photo" method="post" enctype="multipart/form-data">
-                    <input type="file" name="photo" accept="image/*">
-                    <button type="submit">Atualizar Foto</button>
-                </form>
-            </div>
             <h1>Meu Perfil</h1>
             <div>
                 <h2>Dados:</h2>
@@ -56,9 +45,27 @@
 
         <div id="product-list">
             <h2>Lista de Produtos</h2>
-            <ul id="product-items">
-                <!-- Lista de produtos será inserida dinamicamente aqui -->
-            </ul>
+            <table>
+                <tr>
+                    <th>Nome do Produto</th>
+                    <th>Quantidade</th>
+                    <th>Ações</th>
+                </tr>
+                % for product in products:
+                <tr>
+                    <td>{{ product.name }}</td>  <!-- Use o nome correto do atributo -->
+                    <td>{{ product.quantity }}</td>
+                    <td>
+                        <form action="/edit_product/{{ product.name }}" method="POST" style="display:inline;">
+                            <button type="submit">Editar</button>
+                        </form>
+                        <form action="/delete_product/{{ product.name }}" method="POST" style="display:inline;">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                % end
+            </table>
         </div>
     </main>
     <footer class="bottom-bar">
@@ -69,7 +76,3 @@
 
 </body>
 </html>
-
-
-
-
