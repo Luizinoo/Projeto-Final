@@ -19,61 +19,60 @@ def serve_static(filepath):
 def home():
     return ctl.render('home')
 
-@app.route('/membros/<username>', methods=['GET'])
-def action_pagina(username=None):
-    return ctl.render('membros', username)
+@app.route('/membros', method='GET')
+def membros_getter():
+    return ctl.render('membros')
 
 @app.route('/login', method='GET')
-def login():
+def login_getter():
     return ctl.render('login')
-
-@app.route('/login', method='POST')
-def action_login():
-    username = request.forms.get('username')
-    password = request.forms.get('password')
-    session_id, username = ctl.authenticate_user(username, password)
-    if session_id:
-        response.set_cookie('session_id', session_id, httponly=True, secure=True, max_age=3600)
-        redirect(f'/membros/{username}')
-    else:
-        return redirect('/login')
-
-@app.route('/cadastro', method='GET')
-def cadastro_getter():
-    return ctl.render('cadastro')
-
-@app.route('/confirma', method='GET')
-def confirma():
-    return ctl.render('confirma')
-
-@app.route('/cadastro', method='POST')
-def cadastro_action():
-    username = request.forms.get('username')
-    password = request.forms.get('password')
-    ctl.insert_user(username, password)
-    return redirect('/confirma')
 
 @app.route('/edit', method='GET')
 def edit_getter():
     return ctl.render('edit')
 
+@app.route('/login', method='POST')
+def login_action():
+    username = request.forms.get('username')
+    password = request.forms.get('password')
+    ctl.authenticate_user(username, password)
+
 @app.route('/edit', method='POST')
 def edit_action():
     username = request.forms.get('username')
     password = request.forms.get('password')
+    print(username + ' sendo atualizado...')
     ctl.update_user(username, password)
-    return redirect('/edit')
+    return ctl.render('edit')
+
+@app.route('/create', method='GET')
+def create_getter():
+    return ctl.render('create')
+
+@app.route('/create', method='POST')
+def create_action():
+    username = request.forms.get('username')
+    password = request.forms.get('password')
+    ctl.insert_user(username, password)
+    return ctl.render('login')
+
+@app.route('/logout', method='POST')
+def logout_action():
+    ctl.logout_user()
+    return ctl.render('login')
+
+@app.route('/delete', method='GET')
+def delete_getter():
+    return ctl.render('delete')
 
 @app.route('/delete', method='POST')
 def delete_action():
     ctl.delete_user()
-    return redirect('/login')
+    return ctl.render('login')
 
-@app.route('/logout', method='POST')
-def logout():
-    ctl.logout_user()
-    response.delete_cookie('session_id')
-    redirect('/login')
+@app.route('/confirma', method='GET')
+def confirma():
+    return ctl.render('confirma')
 
 @app.route('/administracao', method='GET')
 def administracao():

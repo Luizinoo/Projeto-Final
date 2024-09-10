@@ -6,6 +6,7 @@
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico" />
     <title>Membros</title>
     <link rel="stylesheet" type="text/css" href="/static/css/membros.css" />
+    <script src="/static/js/mobile-navbar.js" defer></script>
     <script src="/static/js/profile.js" defer></script>
 </head>
 <body>
@@ -29,15 +30,28 @@
     <main>
         <div id="profile-section">
             <div id="profile-photo">
-                <img src="{{ current_user.profile_image or '/static/img/yara.jpg' }}" alt="Foto de Perfil" id="profile-img">
-                <div class="profile-info">
-                    <h2>👩‍🌾Cooperado👨‍🌾</h2>
-                    <h3> <br> {{ current_user.username }}</h3>
-                </div>
+                <img src="{{ current_user.profile_image or '/static/img/default-profile.jpg' }}" alt="Foto de Perfil" id="profile-img">
+                <form action="/upload_photo" method="post" enctype="multipart/form-data">
+                    <input type="file" name="photo" accept="image/*">
+                    <button type="submit">Atualizar Foto</button>
+                </form>
+            </div>
+            <h1>Meu Perfil</h1>
+            <div>
+                <h2>Dados:</h2>
+                <p>Nome: {{ current_user.username }}</p>
             </div>
             <form action="/logout" method="post" class="logout-form">
                 <button type="submit">Sair</button>
             </form>
+            <form action="/delete" method="post">
+                <input value="Apagar conta" type="submit" />
+            </form>
+            <form action="/edit" method="get">
+                <button type="submit">Editar usuário</button>
+            </form>
+            <button><a class="opc" href="/produtos">Produtos</a></button>
+            <button><a class="opc" href="/serviços">Serviços</a></button>
         </div>
 
         <div id="product-list">

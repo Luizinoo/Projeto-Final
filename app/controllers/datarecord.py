@@ -1,86 +1,96 @@
-from app.models.user_account import UserAccount
+from app.models.user_account import UserAccount, SuperAccount
 from app.models.product import Product
 import json
 import uuid
 
 
-class DataRecord:
+class UserRecord():
     def __init__(self):
-        self.__product = []
-        self.__user_accounts = []
+        self.__allusers= {'user_accounts': [], 'super_accounts': []}
         self.__authenticated_users = {}
-        self.read_user_accounts()
+        self.read('user_accounts')
+        self.read('super_accounts')
         self.read_products()
+        self.__product = []
 
     # Funções para usuários
-    def read_user_accounts(self):
+    def read(self,database):
+        account_class = SuperAccount if (database == 'super_accounts' ) else UserAccount
         try:
-            with open("app/controllers/db/user_accounts.json", "r") as arquivo_json:
-                user_data = json.load(arquivo_json)
-                self.__user_accounts = [UserAccount(**data) for data in user_data]
+            with open(f"app/controllers/db/{database}.json", "r") as fjson:
+                user_d = json.load(fjson)
+                self.__allusers[database]= [account_class(**data) for data in user_d]
         except FileNotFoundError:
-            self.__user_accounts.append(UserAccount('Guest', '010101', '101010'))
+            self.__allusers[database].append(account_class('Guest', '000000'))
 
-    def __write_user_accounts(self):
+    def __write(self,database):
         try:
-            with open("app/controllers/db/user_accounts.json", "w") as arquivo_json:
-                user_data = [vars(user_account) for user_account in self.__user_accounts]
-                json.dump(user_data, arquivo_json)
+            with open(f"app/controllers/db/{database}.json", "w") as fjson:
+                user_data = [vars(user_account) for user_account in \
+                self.__allusers[database]]
+                json.dump(user_data, fjson)
                 print(f'Arquivo gravado com sucesso (Usuário)!')
         except FileNotFoundError:
             print('O sistema não conseguiu gravar o arquivo (Usuário)!')
 
-    def set_user(self, username, password):
-        for user in self.__user_accounts:
-            if username == user.username:
-                user.password = password
-                print(f'O usuário {username} foi editado com sucesso.')
-                self.__write_user_accounts()
-                return username
-        else:
-            print(f'O usuário {username} não foi identificado!')
-            return None
+    def setUser(self,username,password):
+        for account_type in ['user_accounts', 'super_accounts']:
+            for user in self.__allusers[account_type]:
+                if username == user.username:
+                    user.password= password
+                    print(f'O usuário {username} foi editado com sucesso.')
+                    self.__write(account_type)
+                    return username
+        print('O método setUser foi chamado, porém sem sucesso.')
+        return None
 
-    def remove_user(self, user):
-        if user in self.__user_accounts:
-            print(f'O usuário {user.username} foi encontrado no cadastro.')
-            self.__user_accounts.remove(user)
-            print(f'O usuário {user.username} foi removido do cadastro.')
-            self.__write_user_accounts()
-            return user.username
+    def removeUser(self, user):
+        for account_type in ['user_accounts', 'super_accounts']:
+            if user in self.__allusers[account_type]:
+                print(f'O usuário {"(super) " if account_type == "super_accounts" else ""}{user.username} foi encontrado no cadastro.')
+                self.__allusers[account_type].remove(user)
+                print(f'O usuário {"(super) " if account_type == "super_accounts" else ""}{user.username} foi removido do cadastro.')
+                self.__write(account_type)
+                return user.username
         print(f'O usuário {user.username} não foi identificado!')
         return None
 
-    def book_user(self, username, password):
-        new_user = UserAccount(username, password)
-        self.__user_accounts.append(new_user)
-        self.__write_user_accounts()
+    def book(self, username, password, permissions):
+        account_type = 'super_accounts' if permissions else 'user_accounts'
+        account_class = SuperAccount if permissions else UserAccount
+        new_user = account_class(username, password, permissions) if permissions else account_class(username, password)
+        self.__allusers[account_type].append(new_user)
+        self.__write(account_type)
         return new_user.username
 
-    def get_current_user(self, session_id):
-        return self.__authenticated_users.get(session_id, None)
+    def getUserAccounts(self):
+        return self.__allusers['user_accounts']
 
-    def get_user_name(self, session_id):
-        user = self.get_current_user(session_id)
-        return user.username if user else None
 
-    def get_user_session_id(self, username):
-        for session_id, user in self.__authenticated_users.items():
-            if username == user.username:
-                return session_id
+    def getCurrentUser(self,session_id):
+        if session_id in self.__authenticated_users:
+            return self.__authenticated_users[session_id]
+        else:
+            return None
+
+
+    def getAuthenticatedUsers(self):
+        return self.__authenticated_users
+
+
+    def checkUser(self, username, password):
+        for account_type in ['user_accounts', 'super_accounts']:
+            for user in self.__allusers[account_type]:
+                if user.username == username and user.password == password:
+                    session_id = str(uuid.uuid4())  # Gera um ID de sessão único
+                    self.__authenticated_users[session_id] = user
+                    return session_id  # Retorna o ID de sessão para o usuário
         return None
 
-    def check_user(self, username, password):
-        for user in self.__user_accounts:
-            if user.username == username and user.password == password:
-                session_id = str(uuid.uuid4())
-                self.__authenticated_users[session_id] = user
-                return session_id
-        return None
 
     def logout(self, session_id):
         if session_id in self.__authenticated_users:
-            del self.__authenticated_users[session_id]
+            del self.__authenticated_users[session_id] # Remove o usuário logado
 
     # Funções para produtos
     def read_products(self):
@@ -108,10 +118,10 @@ class DataRecord:
     def get_products(self):
         return self.__product
     
-    def update_user_profile_image(self, user):
-        for existing_user in self.__user_accounts:
-            if existing_user.username == user.username:
-                existing_user.profile_image = user.profile_image
-                self.__write()
-                return
-        print(f'Usuário {user.username} não encontrado.')
+    # def update_user_profile_image(self, user):
+    #     for existing_user in self.__user_accounts:
+    #         if existing_user.username == user.username:
+    #             existing_user.profile_image = user.profile_image
+    #             self.__write()
+    #             return
+    #     print(f'Usuário {user.username} não encontrado.')

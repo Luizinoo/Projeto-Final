@@ -29,7 +29,7 @@
         <div id="login">
             <form class="card" action="/cadastro" method="post">
                 <div class="card-header">
-                    <h2>Seja um de Nós:</h2>
+                    <h2>CADASTRE-SE:</h2>
                 </div>
                 <div class="card-content">
                     <div class="card-content-area">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <input type="submit" value="Cadastre-se" class="submit">
+                    <input type="submit" value="Cadastrar" class="submit">
                 </div>
             </form>
             
@@ -53,25 +53,22 @@
         </div>
     </main>
     <!-- Elemento de Áudio -->
-<audio id="success-sound" src="static/img/som.mp3"></audio>
+    <audio id="success-sound" src="static/img/som.mp3"></audio>
+    <script>
+        // Captura o formulário e o elemento de áudio
+        const form = document.querySelector('.card');
+        const successSound = document.getElementById('success-sound');
 
-<script>
-    // Captura o formulário e o elemento de áudio
-    const form = document.querySelector('.card');
-    const successSound = document.getElementById('success-sound');
+        // Adiciona um evento ao formulário para quando ele for submetido
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário (para testes)
 
-    // Adiciona um evento ao formulário para quando ele for submetido
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Previne o envio padrão do formulário (para testes)
+            // Tocar o som após o cadastro
+            successSound.play();
 
-        // Tocar o som após o cadastro
-        successSound.play();
-
-        // Aqui você pode adicionar a lógica para enviar o formulário, por exemplo, via AJAX
-        alert('Cadastro realizado com sucesso!');
-    });
-</script>
-
+            // Aqui você pode adicionar a lógica para enviar o formulário, por exemplo, via AJAX
+            alert('Cadastro realizado com sucesso!');
+        });
     </script>
 </body>
 </html>
