@@ -4,36 +4,175 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
-        <title>Pagina Inicial</title>
+        <title>Página Inicial</title>
         <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
         <script src="/static/js/mobile-navbar.js" defer></script>
     </head>
 
     <body>
+        <!-- Barra Superior -->
         <header>
-        <nav>
-            <a class="logo" href="/"> <img src="/static/img/lg.png" alt=""> </a>
-            <ul class="nav-list">
-                <li><a href="/administracao">Admin</a></li>
-                <li><a href="/noticias">Contato</a></li>
-            </ul>
-        </nav>
+            <nav class="top-bar">
+                <a class="logo" href="/"> <img src="/static/img/lg.png" alt="Logo"> </a>
+                <ul class="nav-list">
+                    <li><a href="/servicos">Serviços</a></li>
+                    <li><a href="/noticias">Notícias</a></li>
+                </ul>
+            </nav>
         </header>
+
+        <!-- Área dos botões de login de membros e admin abaixo da barra superior, à direita -->
+        <div class="login-options">
+            <span class="login-title">ENTRA</span>
+            <button class="login-btn"><a href="/login?type=member">MEMBRO</a></button>
+            <button class="login-btn"><a href="/login?type=admin">ADM</a></button>
+        </div>
+
         <main>
-            <section class="banner">
-                <div class="texto">
-                   <h2 class="sub_titulo"><br><br><br><br><br>Junte-se! </h2>
-                   <div class="botoes">
-                       <button class="n-overlay"><a href="/login" >Login</a></button>
-                       <button class="overlay"><a href="/create" >Inscrever</a></button>
-                       <footer class="bottom-bar">
-                        <!-- Conteúdo da barra, como links ou informações de copyright -->
-                         © 2024 Sua Empresa. Todos os direitos reservados.
-                    </footer>
-                    
-                   </div>
-                </div>
+            <!-- Seção para adicionar uma imagem no canto esquerdo abaixo da barra -->
+            <section class="add-image-section">
+                <button class="add-image-btn">Adicionar Imagem</button>
+            </section>
+
+            <!-- Espaçamento adicional para descer o botão de cadastro -->
+            <div class="spacer"></div>
+
+            <!-- Área do botão de cadastro e frase de cooperação no final da página -->
+            <section class="cadastro-section">
+                <h3 class="cadastro-subtitulo">👩‍🌾 SEJA UM COOPERADO 👨‍🌾</h3>
+                <button class="overlay"><a href="/create">CADASTRE-SE AQUI</a></button>
             </section>
         </main>
+
+        <!-- Rodapé -->
+        <footer class="bottom-bar">
+            © 2024 Sua Empresa. Todos os direitos reservados.
+        </footer>
+
+        <style>
+            /* Estilos para a barra superior */
+            .top-bar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+                background-color: #f8f9fa;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-list {
+                display: flex;
+                gap: 20px;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .nav-list a {
+                text-decoration: none;
+                color: #333;
+                font-weight: bold;
+            }
+
+            .login-options {
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                background-color: #f8f9fa;
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .login-title {
+                font-size: 14px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .login-btn a {
+                text-decoration: none;
+                color: white;
+            }
+
+            .login-btn {
+                background-color: #007BFF;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .login-btn:hover {
+                background-color: #0056b3;
+            }
+
+            .add-image-section {
+                margin: 20px;
+                text-align: left;
+            }
+
+            .add-image-btn {
+                background-color: #ffc107;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                color: #333;
+            }
+
+            .add-image-btn:hover {
+                background-color: #e0a800;
+            }
+
+            .spacer {
+                height: 300px; /* Adiciona espaço extra para empurrar o botão de cadastro para baixo */
+            }
+
+            .cadastro-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 20px 0;
+            }
+
+            .cadastro-subtitulo {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+
+            .overlay a {
+                text-decoration: none;
+                color: white;
+            }
+
+            .overlay {
+                background-color: #28a745;
+                border: none;
+                padding: 15px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .overlay:hover {
+                background-color: #218838;
+            }
+
+            .bottom-bar {
+                text-align: center;
+                padding: 10px 0;
+                background-color: #f1f1f1;
+                position: fixed;
+                width: 100%;
+                bottom: 0;
+                left: 0;
+            }
+        </style>
     </body>
 </html>

@@ -7,18 +7,17 @@
     <title>Membros</title>
     <link rel="stylesheet" type="text/css" href="/static/css/membros.css" />
     <script src="/static/js/mobile-navbar.js" defer></script>
-    <!-- <script src="/static/js/profile.js" defer></script> -->
 </head>
 <body>
     <header>
         <nav>
             <a class="logo" href="/home"><img src="/static/img/lg.png" alt="Logo"></a>
             <div class="header-buttons">
-                <li><a href="/administracao">Admin</a></li>
-                <form action="/edit" method="get">
+                <a href="/administracao">Admin</a>
+                <form action="/edit" method="get" style="display:inline;">
                     <button type="submit">Atualizar Cadastro</button>
                 </form>
-                <form action="/delete" method="post">
+                <form action="/delete" method="post" style="display:inline;">
                     <button type="submit">Apagar Conta</button>
                 </form>
             </div>
@@ -27,44 +26,43 @@
     <main>
         <div id="profile-section">
             <h1>Meu Perfil</h1>
-            <div>
-                <h2>Dados do {{"Super" if current_user.isAdmin() else ""}} Usuário:</h2>
-                <p>Username: {{current_user.username}} </p>
-            </div>
             <form action="/logout" method="post" class="logout-form">
                 <button type="submit">Sair</button>
             </form>
-            <form action="/delete" method="post">
-                <input value="Apagar conta" type="submit" />
-            </form>
-            <form action="/edit" method="get">
+            <form action="/edit" method="get" style="display:inline;">
                 <button type="submit">Editar usuário</button>
             </form>
-            <button><a class="opc" href="/produtos">Produtos</a></button>
+            <a class="opc" href="/produtos">
+                <button>Produtos</button>
+            </a>
         </div>
 
         <div id="product-list">
             <h2>Lista de Produtos</h2>
             <table>
-                <tr>
-                    <th>Nome do Produto</th>
-                    <th>Quantidade</th>
-                    <th>Ações</th>
-                </tr>
-                % for product in products:
-                <tr>
-                    <td>{{ product.name }}</td>  <!-- Use o nome correto do atributo -->
-                    <td>{{ product.quantity }}</td>
-                    <td>
-                        <form action="/edit_product/{{ product.name }}" method="POST" style="display:inline;">
-                            <button type="submit">Editar</button>
-                        </form>
-                        <form action="/delete_product/{{ product.name }}" method="POST" style="display:inline;">
-                            <button type="submit">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-                % end
+                <thead>
+                    <tr>
+                        <th>Nome do Produto</th>
+                        <th>Quantidade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for product in products:
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>
+                            <form action="/edit_product/{{ product.name }}" method="POST" style="display:inline;">
+                                <button type="submit">Editar</button>
+                            </form>
+                            <form action="/delete_product/{{ product.name }}" method="POST" style="display:inline;">
+                                <button type="submit">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                    % end
+                </tbody>
             </table>
         </div>
     </main>

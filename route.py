@@ -1,116 +1,142 @@
+from bottle import Bottle, request, redirect, static_file, template, response, run
 from app.controllers.application import Application
-from bottle import Bottle, static_file, run, request, response, redirect
 
 app = Bottle()
 ctl = Application()
 
-#-----------------------------------------------------------------------------
-# Rotas:
-
-@app.route("/")
-def inicio():
-    redirect('/home')
-
-@app.route('/static/<filepath:path>')
-def serve_static(filepath):
-    return static_file(filepath, root='./app/static')
-
-@app.route('/home', method='GET')
-def home():
-    return ctl.render('home')
-
-@app.route('/membros', method='GET')
-def membros_getter():
-    return ctl.render('membros')
-
-@app.route('/login', method='GET')
-def login_getter():
-    return ctl.render('login')
-
-@app.route('/edit', method='GET')
-def edit_getter():
-    return ctl.render('edit')
-
-@app.route('/login', method='POST')
-def login_action():
-    username = request.forms.get('username')
-    password = request.forms.get('password')
-    ctl.authenticate_user(username, password)
-
-@app.route('/edit', method='POST')
-def edit_action():
-    username = request.forms.get('username')
-    password = request.forms.get('password')
-    print(username + ' sendo atualizado...')
-    ctl.update_user(username, password)
-    return ctl.render('edit')
-
-@app.route('/create', method='GET')
-def create_getter():
-    return ctl.render('create')
-
-@app.route('/create', method='POST')
-def create_action():
-    username = request.forms.get('username')
-    password = request.forms.get('password')
-    ctl.insert_user(username, password)
-    return ctl.render('login')
-
-@app.route('/logout', method='POST')
-def logout_action():
-    ctl.logout_user()
-    return ctl.render('login')
-
-@app.route('/delete', method='GET')
-def delete_getter():
-    return ctl.render('delete')
-
-@app.route('/delete', method='POST')
-def delete_action():
-    ctl.delete_user()
-    return ctl.render('login')
-
-@app.route('/confirma', method='GET')
-def confirma():
-    return ctl.render('confirma')
-
-@app.route('/administracao', method='GET')
-def administracao():
-    return ctl.render('administracao')
-
-@app.route('/noticias', method='GET')
+# Rota para exibir notícias
+@app.route('/noticias')
 def noticias():
-    return ctl.render('noticias')
+    return ctl.noticias()
 
-@app.route('/produtos', method='GET')
-def produtos_getter():
-    return ctl.render('produtos')
+# Rota para adicionar uma nova notícia
+@app.route('/add_noticia', method='POST')
+def add_noticia():
+    title = request.forms.get('title')
+    content = request.forms.get('content')
+    upload = request.files.get('upload')
+    
+    file_path = None
+    if upload:
+        file_path = f"app/static/uploads/{upload.filename}"
+        upload.save(file_path)
+    
+    ctl.add_news(title, content, file_path)
+    return redirect('/noticias')
 
-@app.route('/produtos', method='POST')
-def produtos_action():
-    name = request.forms.get('product')
-    quantity = request.forms.get('quant')
-    ctl.add_product(name, quantity)
+# Rota para baixar arquivos
+@app.route('/download/<filename>')
+def download(filename):
+    return static_file(filename, root='app/static/uploads', download=filename)
+
+# Home
+@app.route('/')
+def home():
+    return ctl.home()
+
+# Editar
+@app.route('/edit')
+def edit():
+    return ctl.edit()
+
+# Exibição de membros
+@app.route('/membros')
+def membros():
+    current_user = request.get_cookie('session_id', secret='sua-chave-secreta')
+    if not current_user:
+        return redirect('/login')
+    return ctl.membros()
+
+# Rota de login
+@app.route('/login', method=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return ctl.process_login()
+    return ctl.login()
+
+# Criar
+@app.route('/create')
+def create():
+    return ctl.create()
+
+# Confirmar
+@app.route('/confirma')
+def confirma():
+    return ctl.confirma()
+
+# Exibir produtos
+@app.route('/produtos')
+def produtos():
+    return ctl.produtos()
+
+# Editar produto
+@app.route('/edit_product')
+def edit_product():
+    return ctl.edit_product()
+
+# Exibir serviços com produtos
+@app.route('/servicos')
+def servicos():
+    products = ctl.get_products()  # Garantir que a função retorna uma lista
+    return template('app/views/html/servicos.html', products=products)
+
+# Revisão do carrinho
+@app.route('/review_cart')
+def review_cart():
+    return ctl.review_cart()
+
+# Checkout com geração de nota e atualização do estoque
+@app.route('/checkout', method=['GET', 'POST'])
+def checkout():
+    if request.method == 'POST':
+        invoice_data = ctl.generate_invoice()
+        if invoice_data:
+            ctl.update_inventory(invoice_data)
+        return template('app/views/html/checkout.html', invoice_data=invoice_data)
+    return template('app/views/html/checkout.html', invoice_data=None)
+
+# Download da nota
+@app.route('/download-invoice/<invoice_id>', method='GET')
+def download_invoice(invoice_id):
+    file_path = f'app/static/invoices/{invoice_id}.pdf'
+    return static_file(file_path, root='app/static/invoices', download=f"{invoice_id}.pdf")
+
+# Rota para adicionar produtos
+@app.route('/add_product', method='POST')
+def add_product():
+    name = request.forms.get('name')
+    price = float(request.forms.get('price'))
+    quantity = int(request.forms.get('quantity'))
+    ctl.add_product(name, price, quantity)
     return redirect('/membros')
 
-@app.route('/delete_product/<name>', method='POST')
-def delete_product_action(name):
-    ctl.delete_product(name)
-    return redirect('/membros')
-
-@app.route('/edit_product/<name>', method='POST')
-def edit_product_getter(name):
-    return ctl.edit_product(name)
-
-@app.route('/update_product', method='POST')
-def update_product_action():
+# Rota para editar produtos
+@app.route('/edit_product', method='POST')
+def edit_product():
     old_name = request.forms.get('old_name')
     new_name = request.forms.get('new_name')
-    quant = request.forms.get('quant')
-    ctl.update_product(old_name, new_name, quant)
+    quantity = int(request.forms.get('quantity'))
+    ctl.edit_product(old_name, new_name, quantity)
     return redirect('/membros')
 
-#-----------------------------------------------------------------------------
+# Rota para remover produtos
+@app.route('/remove_product', method='POST')
+def remove_product():
+    name = request.forms.get('name')
+    ctl.remove_product(name)
+    return redirect('/membros')
+
+# Adicionar ao carrinho
+@app.route('/add_to_cart', method='POST')
+def add_to_cart():
+    ctl.add_to_cart()
+    return redirect('/review_cart')
+
+# Logout
+@app.route('/logout')
+def logout():
+    response.delete_cookie('session_id')
+    return redirect('/login')
 
 if __name__ == '__main__':
     run(app, host='localhost', port=8080, debug=True)

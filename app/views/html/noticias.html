@@ -1,44 +1,299 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
-        <title>Noticias</title>
-        <link rel="stylesheet" type="text/css" href="/static/css/noticias.css" />
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
+    <title>Notícias</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
+    <script src="/static/js/mobile-navbar.js" defer></script>
+    <style>
+        /* Estilos para a barra superior */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #007BFF; /* Azul */
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-    <body>
-        <header>
-        <nav>
-            <a class="logo" href="/"><img src="/static/img/lg.png" alt=""> </a>
-            <div class="mobile-menu">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-            </div>
+        .top-bar .logo img {
+            height: 40px; /* Ajuste o tamanho do logo conforme necessário */
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos para o rodapé */
+        .bottom-bar {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007BFF; /* Azul */
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        /* Estilos para o carrossel */
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh; /* Altura mínima da tela para centralizar verticalmente */
+            padding: 20px;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 80%; /* Ajuste conforme necessário */
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%; /* Ajuste conforme necessário */
+            overflow: hidden;
+        }
+
+        .carousel-slide {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%; /* Exibe uma imagem por vez */
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-item img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .carousel-button {
+            background-color: #007BFF; /* Azul */
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .carousel-button.prev {
+            left: 10px;
+        }
+
+        .carousel-button.next {
+            right: 10px;
+        }
+
+        .carousel-button:hover {
+            background-color: #0056b3; /* Azul escuro */
+        }
+
+        /* Estilos para a modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            text-align: center;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: red;
+        }
+
+        .modal-close:hover {
+            color: darkred;
+        }
+
+        /* Estilos para miniaturas */
+        .thumbnail-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .thumbnail-item img {
+            width: 100px; /* Ajuste o tamanho da miniatura conforme necessário */
+            height: auto;
+            cursor: pointer;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+        }
+
+        .thumbnail-item img:hover {
+            border-color: #0056b3; /* Azul escuro */
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra Superior -->
+    <header>
+        <nav class="top-bar">
+            <a class="logo" href="/"><img src="/static/img/lg.png" alt="Logo"></a>
             <ul class="nav-list">
-            <li><a href="/home">Início</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/administracao">Admin</a></li>
-            <li><a href="/noticias">Contato</a></li>
+                <li><a href="{{ products_file_path }}" download="products_of_the_day.json" class="button">Baixar Produtos do Dia</a></li>
+                <li><a href="/" class="button">Voltar para a Home</a></li>
             </ul>
         </nav>
-        </header>
-        <main>
-            <title>Sua Página</title>
-        <link rel="stylesheet" href="styles.css"> <!-- Inclui o arquivo CSS -->
-    </head>
-    <body>
-    
-        <!-- Conteúdo da página -->
-    
-        <footer class="bottom-bar">
-            © 2024 Sua Empresa. Todos os direitos reservados.
-        </footer>
+    </header>
 
-            
-        </main>
-        <script src="/app/static/js/mobile-navbar.js"></script>
-    </body>
+    <!-- Conteúdo Principal -->
+    <main>
+        <div class="carousel">
+            <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
+            <div class="carousel-container">
+                <div class="carousel-slide" id="carouselSlide">
+                    <!-- Adicionar as 5 imagens de notícias aqui -->
+                    <div class="carousel-item" id="carouselItem1">
+                        <img src="https://1drv.ms/i/c/8f3a93e3ba6a4e8b/Ed9LnnWm2wRKiZL283JCfOsBDShyXFZqr20fM60LOsMDbQ?e=cRXl1D" alt="Imagem da Notícia 1" onclick="openModal('noticia1')">
+                    </div>
+                    <div class="carousel-item" id="carouselItem2">
+                        <img src="link-da-imagem-2" alt="Imagem da Notícia 2" onclick="openModal('noticia2')">
+                    </div>
+                    <div class="carousel-item" id="carouselItem3">
+                        <img src="link-da-imagem-3" alt="Imagem da Notícia 3" onclick="openModal('noticia3')">
+                    </div>
+                    <div class="carousel-item" id="carouselItem4">
+                        <img src="link-da-imagem-4" alt="Imagem da Notícia 4" onclick="openModal('noticia4')">
+                    </div>
+                    <div class="carousel-item" id="carouselItem5">
+                        <img src="link-da-imagem-5" alt="Imagem da Notícia 5" onclick="openModal('noticia5')">
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+
+        
+    </main>
+
+    <!-- Modal para a notícia -->
+    <div id="newsModal" class="modal">
+        <div class="modal-content" id="modalContent">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Imagem da Notícia">
+            <h2 id="modalTitle"></h2>
+            <p id="modalText"></p>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="bottom-bar">
+        © 2024 Sua Empresa. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        const news = {
+            noticia1: {
+                image: 'https://1drv.ms/i/c/8f3a93e3ba6a4e8b/Ed9LnnWm2wRKiZL283JCfOsBDShyXFZqr20fM60LOsMDbQ?e=cRXl1D',
+                title: 'Título da Notícia 1',
+                text: 'A Coopitauna, fundada há três anos em Planaltina de Goiás, tem como missão transformar vidas através do desenvolvimento sustentável e da melhoria da qualidade de vida dos produtores rurais. A cooperativa valoriza a sustentabilidade, a cooperação e a inovação, oferecendo suporte técnico, capacitação e acesso a mercados. Suas iniciativas promovem a inclusão social e ajudam os produtores a aumentar a produtividade e a renda, resultando em melhores condições de vida para suas famílias.'
+            },
+            noticia2: {
+                image: 'link-da-imagem-2',
+                title: 'Título da Notícia 2',
+                text: 'Texto da Notícia 2'
+            },
+            noticia3: {
+                image: 'link-da-imagem-3',
+                title: 'Título da Notícia 3',
+                text: 'Texto da Notícia 3'
+            },
+            noticia4: {
+                image: 'link-da-imagem-4',
+                title: 'Título da Notícia 4',
+                text: 'Texto da Notícia 4'
+            },
+            noticia5: {
+                image: 'link-da-imagem-5',
+                title: 'Título da Notícia 5',
+                text: 'Texto da Notícia 5'
+            }
+        };
+
+        let currentSlide = 0;
+        const totalSlides = 5;
+
+        function openModal(noticiaId) {
+            const noticia = news[noticiaId];
+            document.getElementById('modalImage').src = noticia.image;
+            document.getElementById('modalTitle').innerText = noticia.title;
+            document.getElementById('modalText').innerText = noticia.text;
+            document.getElementById('newsModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('newsModal').style.display = 'none';
+        }
+
+        function moveSlide(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            document.querySelector('.carousel-slide').style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function moveToSlide(index) {
+            currentSlide = index;
+            document.querySelector('.carousel-slide').style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+    </script>
+</body>
 </html>

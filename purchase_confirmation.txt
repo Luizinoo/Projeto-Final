@@ -1,0 +1,3 @@
+Compra realizada com sucesso!
+Total a pagar: R$ 0.00
+------------------------------
