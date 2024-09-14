@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
-    <title>Cadastro</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/cadastro.css" />
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/Login.css" />
 </head>
 <body>
     <header>
         <nav>
             <a class="logo" href="/home">
-                <img src="/static/img/lg.png" alt="Logo da Empresa">
+                <img src="/static/img/lg.png" alt="Logo">
             </a>
         </nav>
     </header>
+    
     <main>
-        <div id="cadastro">
-            <form class="card" action="/create" method="post">
+        <section id="login">
+            <form class="card" action="/login" method="post">
                 <div class="card-header">
-                    <h2>Cadastre-se</h2>
+                    <h2>Faça Login</h2>
                 </div>
                 <div class="card-content">
                     <div class="card-content-area">
@@ -32,13 +33,14 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <input type="submit" value="Cadastrar" class="submit">
+                    <input type="submit" value="Login" class="submit">
                 </div>
             </form>
-            <footer class="bottom-bar">
-                © 2024 Sua Empresa. Todos os direitos reservados.
-            </footer>
-        </div>
+        </section>
+
+        <footer class="bottom-bar">
+            © 2024 Sua Empresa. Todos os direitos reservados.
+        </footer>
     </main>
 </body>
 </html>

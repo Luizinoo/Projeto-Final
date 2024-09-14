@@ -1,99 +1,68 @@
-/* login.css */
-
-/* Reset básico */
-body, h2, form, input {
+/* Reset básico para remover margens e paddings padrão */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-}
-
-/* Barra Superior */
-header {
-    background-color: #333;
-    color: white;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-}
-
-.logo img {
-    height: 40px; /* Ajuste conforme necessário */
-}
-
-.nav-list {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-list li {
-    margin: 0 10px;
-}
-
-.nav-list a {
-    color: white;
-    text-decoration: none;
-}
-
-.login-options {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.login-options p {
-    margin: 0;
-    color: white;
-}
-
-.login-link {
-    color: white;
-    text-decoration: none;
-    margin-left: 10px;
-}
-
-/* Formulário de login */
-#login {
-    display: flex;
     justify-content: center;
-    align-items: center;
-    height: calc(100vh - 80px); /* Ajuste para a altura da barra e rodapé */
-    margin: 20px;
+    min-height: 100vh;
+    color: #333;
+}
+
+header {
+    width: 100%;
+    background-color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+header nav .logo img {
+    width: 150px;
+    height: auto;
+}
+
+main {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+#login {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 .card {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.card-header {
-    margin-bottom: 20px;
+.card-header h2 {
+    font-size: 24px;
+    text-align: center;
+    color: #333;
 }
 
-.card-content-area {
-    margin-bottom: 15px;
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .card-content-area label {
-    display: block;
-    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
 }
 
 .card-content-area input {
@@ -101,31 +70,43 @@ nav {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 16px;
+}
+
+.card-content-area input:focus {
+    border-color: #0066cc;
+    outline: none;
 }
 
 .card-footer {
-    margin-top: 20px;
+    text-align: center;
 }
 
-.submit {
-    width: 100%;
+.card-footer .submit {
+    background-color: #0066cc;
+    color: #fff;
     padding: 10px;
-    background-color: #333;
-    color: white;
     border: none;
     border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
     cursor: pointer;
 }
 
-.submit:hover {
-    background-color: #555;
+.card-footer .submit:hover {
+    background-color: #005bb5;
 }
 
-/* Rodapé */
 .bottom-bar {
-    background-color: #333;
-    color: white;
     text-align: center;
-    padding: 10px 0;
-    margin-top: auto;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    main {
+        max-width: 90%;
+    }
 }

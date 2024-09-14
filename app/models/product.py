@@ -1,6 +1,5 @@
 # app/models/product.py
 class Product:
-    def __init__(self, name, price, quantity):
+    def __init__(self, name, quantity):
         self.name = name
-        self.price = price
         self.quantity = quantity

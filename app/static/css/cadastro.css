@@ -1,215 +1,112 @@
+/* Reset básico para remover margens e paddings padrão */
 * {
     margin: 0;
     padding: 0;
-}
-
-a {
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-a:hover {
-    opacity: 0.7;
-}
-
-form {
-    align-items: center;
-}
-
-.logo {
-    font-size: 24px;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-}
-
-nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
-    background: #37db34;
-    height: 5vh;
-}
-
-main {
-    background: url("/static/img/a11.jpg") no-repeat center center;
-    background-size: cover;
-    height: 92vh;
-}
-
-
-.bottom-bar {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%; /* Corrigido para ocupar a largura correta */
-    height: 2vh;
-    background: #43d72fec;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
-    color: rgb(5, 5, 5);
-    z-index: 999;
-}
-
-.nav-list {
-    list-style: none;
-    display: flex;
-}
-
-.nav-list li {
-    letter-spacing: 3px;
-    margin-left: 32px;
-}
-
-.mobile-menu {
-    display: none;
-    cursor: pointer;
-}
-
-@media (max-width: 999px) {
-    body {
-        overflow-x: hidden;
-    }
-    .nav-list {
-        position: absolute;
-        top: 8vh;
-        right: 0;
-        width: 50vw;
-        height: 92vh;
-        background: #1f1fc6;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in;
-    }
-    .nav-list li {
-        margin-left: 20px; /* Corrigido para adicionar a unidade */
-        opacity: 0.8; /* Corrigido a opacidade */
-    }
-    .mobile-menu {
-        display: block;
-    }
-}
-
-.nav-list.active {
-    transform: translateX(0);
-}
-
-@keyframes navLinkFade {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.mobile-menu.active .line1 {
-    transform: rotate(-45deg) translate(-8px, 8px);
-}
-
-.mobile-menu.active .line2 {
-    opacity: 0;
-}
-
-.mobile-menu.active .line3 {
-    transform: rotate(45deg) translate(-5px, -7px);
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
 body {
-    padding: 0;
-    margin: 0;
-    background-color: #06ff06e8;
-}
-
-#login {
+    background-color: #f4f4f4;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    font-family: Georgia, Times, 'Times New Roman', serif;
+    min-height: 100vh;
+    color: #333;
+}
+
+header {
+    width: 100%;
+    background-color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+header nav .logo img {
+    width: 150px;
+    height: auto;
+}
+
+main {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+#cadastro {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 .card {
-    padding: 60px; /* Espaçamento interno */
-    border-radius: 15px; /* Cantos arredondados */
-    width: 300px; /* Largura do card */
-    border: 5px solid #00ff4c; /* Borda preta */
-    position: relative; /* Permite posicionar o pseudo-elemento relativo a essa área */
-
-    /* Adicionando a marca d'água */
-    background-image: url('/static/img/ba.jpg'); /* Caminho da imagem de marca d'água */
-    background-size: cover; /* Cobre o card com a imagem */
-    background-repeat: no-repeat; /* Não repete a imagem */
-    background-position: center; /* Centraliza a imagem */
-    opacity: 0.9; /* Ajuste a transparência da imagem de fundo conforme necessário */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.card-header {
-    padding-bottom: 50px; /* Espaçamento inferior */
-    opacity: 0.9; /* Transparência do texto */
-    color: #26f30b; /* Cor do texto */
-    font-size: 26px; /* Tamanho da fonte */
-    text-align: center; /* Centraliza o texto horizontalmente */
-    display: flex; /* Utiliza Flexbox para centralização */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    padding: 20px; /* Adiciona espaçamento interno */
+.card-header h2 {
+    font-size: 24px;
+    text-align: center;
+    color: #333;
 }
 
-.card-content-area {
-    display: flex; /* Usa o layout flexível */
-    flex-direction: column; /* Organiza os itens na direção vertical */
-    padding: 19px 0; /* Adiciona espaçamento interno superior e inferior */
-    transition: all 0.3s ease; /* Suavização das mudanças ao interagir */
-    color: #2709ec; /* Cor do texto preta forte */
-    font-size: 20px; /* Tamanho da fonte maior */
-    opacity: 0.9; /* Transparência do texto */
-    margin: 10px 0; /* Adiciona espaçamento externo */
-    line-height: 1.5; /* Aumenta o espaçamento entre linhas */
-    text-align: left; /* Alinha o texto ao canto esquerdo */
-    position: relative; /* Permite posicionar o pseudo-elemento relativo a essa área */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
+.card-content-area label {
+    font-size: 14px;
+    color: #555;
 }
 
 .card-content-area input {
-    margin-top: 20px;
-    padding: 9px; /* Corrigido */
-    background-color: transparent;
-    border: none;
-    border-bottom: 2.1px solid #06fc06;
-    outline: none;
-    color: #ff3503;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
 }
-.card-content-area:hover {
-    color: #00ff33; /* Cor do texto ao passar o mouse (exemplo de vermelho) */
+
+.card-content-area input:focus {
+    border-color: #0066cc;
+    outline: none;
 }
 
 .card-footer {
-    text-align: center; /* Centraliza o conteúdo dentro do card-footer */
+    text-align: center;
 }
 
 .card-footer .submit {
-    width: 60%; /* Largura do botão */
-    max-width: 250px; /* Define uma largura máxima para o botão */
-    height: 50px; /* Altura do botão */
-    background-color: #00ff11; /* Cor de fundo */
-    border: 4px solid #0a0ef1; /* Borda preta em toda a volta */
-    border-radius: 8px; /* Arredondamento das bordas */
-    color: #0b16e6; /* Cor do texto */
-    margin: 28px auto; /* Margem para espaçamento externo e centralização horizontal */
-    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-    transition: all 0.3s ease; /* Suavização das mudanças ao interagir */
-    display: block; /* Faz o botão ocupar a largura definida e centraliza horizontalmente */
+    background-color: #0066cc;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .card-footer .submit:hover {
-    background-color: #10ff18; /* Cor de fundo ao passar o mouse */
-    border-color: #07e70e; /* Cor da borda ao passar o mouse */
-    transform: scale(1.05); /* Leve aumento ao passar o mouse */
+    background-color: #005bb5;
+}
+
+.bottom-bar {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    main {
+        max-width: 90%;
+    }
 }
