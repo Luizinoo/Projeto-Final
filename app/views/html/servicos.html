@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/static/css/servicos.css" />
-    <title>Serviços - Venda de Produtos</title>
-</head>
-<body>
-    <h1>Serviços - Produtos à Venda</h1>
-    
-    <h2>Produtos Disponíveis</h2>
-    <ul>
-        % if products:
-            % for product in products:
-                <li>
-                    <strong>Nome:</strong> {{product.name}} <br>
-                    <strong>Quantidade:</strong> {{product.quantity}} <br>
-                    <!-- Aqui, você pode adicionar um botão para comprar -->
-                    <form action="/comprar_produto" method="post">
-                        <input type="hidden" name="product_name" value="{{product.name}}">
-                        <label for="quantity">Quantidade:</label>
-                        <input type="number" name="quantity" min="1" max="{{product.quantity}}" required>
-                        <button type="submit">Comprar</button>
-                    </form>
-                </li>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/static/css/servicos.css" />
+        <title>Serviços - Venda de Produtos</title>
+    </head>
+    <body>
+        <h1>Serviços - Produtos à Venda</h1>
+        
+        <h2>Produtos Disponíveis</h2>
+        <ul>
+            % if products:
+                % for product in products:
+                    <li>
+                        <strong>Nome:</strong> {{product.name}} <br>
+                        <strong>Quantidade:</strong> {{product.quantity}} <br>
+                        <!-- Aqui, você pode adicionar um botão para comprar -->
+                        <form action="/comprar_produto" method="post">
+                            <input type="hidden" name="product_name" value="{{product.name}}">
+                            <label for="quantity">Quantidade:</label>
+                            <input type="number" name="quantity" min="1" max="{{product.quantity}}" required>
+                            <button type="submit">Comprar</button>
+                        </form>
+                    </li>
+                % end
+            % else:
+                <p>Não há produtos disponíveis no momento.</p>
             % end
-        % else:
-            <p>Não há produtos disponíveis no momento.</p>
-        % end
-    </ul>
+        </ul>
 
-    <a href="/home">Voltar para Home</a>
-</body>
+        <a href="/home">Voltar para Home</a>
+    </body>
+    <footer class="bottom-bar">
+        © 2024 Sua Empresa. Todos os direitos reservados.
+    </footer>
 </html>

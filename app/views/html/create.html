@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
-    <title>Cadastro</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/cadastro.css" />
-</head>
-<body>
-    <header>
-        <nav>
-            <a class="logo" href="/home">
-                <img src="/static/img/lg.png" alt="Logo da Empresa">
-            </a>
-        </nav>
-    </header>
-    <main>
-        <div id="cadastro">
-            <form class="card" action="/create" method="post">
-                <div class="card-header">
-                    <h2>Cadastre-se</h2>
-                </div>
-                <div class="card-content">
-                    <div class="card-content-area">
-                        <label for="username">Usuário</label>
-                        <input type="text" name="username" id="username" autocomplete="off" required>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
+        <title>Cadastro</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/cadastro.css" />
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a class="logo" href="/home">
+                    <img src="/static/img/lg.png" alt="Logo da Empresa">
+                </a>
+            </nav>
+        </header>
+        <main>
+            <div id="cadastro">
+                <form class="card" action="/create" method="post">
+                    <div class="card-header">
+                        <h2>Cadastre-se</h2>
                     </div>
-                    <div class="card-content-area">
-                        <label for="password">Senha</label>
-                        <input type="password" name="password" id="password" autocomplete="off" required>
+                    <div class="card-content">
+                        <div class="card-content-area">
+                            <label for="username">Usuário</label>
+                            <input type="text" name="username" id="username" autocomplete="off" required>
+                        </div>
+                        <div class="card-content-area">
+                            <label for="password">Senha</label>
+                            <input type="password" name="password" id="password" autocomplete="off" required>
+                        </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <input type="submit" value="Cadastrar" class="submit">
-                </div>
-            </form>
-            <footer class="bottom-bar">
-                © 2024 Sua Empresa. Todos os direitos reservados.
-            </footer>
-        </div>
-    </main>
-</body>
+                    <div class="card-footer">
+                        <input type="submit" value="Cadastrar" class="submit">
+                    </div>
+                </form>
+            </div>
+        </main>
+    </body>
+    <footer class="bottom-bar">
+        © 2024 Sua Empresa. Todos os direitos reservados.
+    </footer>
 </html>
