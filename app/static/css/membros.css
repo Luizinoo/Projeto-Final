@@ -1,172 +1,227 @@
 /* Estilos Gerais */
-body {
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #fffefe;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
-header nav {
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+/* Estilo do Header */
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 18px;
-    background-color: #37db34;
+    width: 90%;
+    margin: 0 auto;
 }
 
-.logo img {
-    height: 30px;
+nav .logo img {
+    max-width: 150px;
 }
 
 .header-buttons {
+    list-style: none;
     display: flex;
-    gap: 10px;
-    align-items: center;
+    gap: 15px;
 }
 
-.header-buttons form {
+.header-buttons li {
     display: inline;
 }
 
+.header-buttons a {
+    color: #fff;
+    font-weight: bold;
+}
+
 .header-buttons button {
-    background-color: #fff;
-    color: #0313ef;
-    border: 3px solid #3804f4;
-    padding: 4px 7px;
+    background-color: #ff6b6b;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 16px;
 }
 
 .header-buttons button:hover {
-    background-color: #091cec;
-    color: #fff;
+    background-color: #ff3b3b;
 }
 
-.change-photo-form {
-    display: flex;
-    align-items: center;
-}
-
-.change-photo-form input[type="file"] {
-    display: none;
-}
-
-.change-photo-form label,
-.change-photo-form button {
-    cursor: pointer;
+/* Estilo Principal */
+main {
+    margin: 40px auto;
+    width: 80%;
+    max-width: 1000px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 #profile-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 3px solid #025610;
-    padding: 15px;
-    margin: 20px;
-    background: #a8dea87e;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgb(2, 100, 7);
-    width: 200px;
-    position: fixed; /* Alterado para fixed */
-    top: 50px; /* Ajustado para o topo */
-    left: 8px; /* Ajustado para a esquerda */
-}
-
-#profile-photo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1px;
-}
-
-#profile-photo img {
-    border-radius: 70%;
-    width: 80px;
-    height: 90px;
-    object-fit: cover;
-    border: 4px solid #0d6f02;
-}
-
-.profile-info {
     text-align: center;
 }
 
-.profile-info h2 {
-    font-size: 23px;
-    color: #050505;
-    margin: 0;
+#profile-section h1 {
+    margin-bottom: 20px;
+    color: #007bff;
 }
 
-.profile-info h3 {
-    font-size: 20px;
-    color: #064e0d;
-    margin: 0;
-}
-
-/* Adiciona a frase "ÓLA, eu sou o cooperado" abaixo da foto */
-#profile-photo {
-    margin-bottom: 10px;
-}
-
-.logout-form {
-    margin-top: 8px;
-}
-
-.logout-form button {
-    background-color: #dd7c7c;
-    color: #030203;
-    border: 2px solid #030c03;
-    padding: 3px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.logout-form button:hover {
-    background-color: #f70808;
-    color: #000000;
-
-}
-
-#product-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#product-items li {
-    background: #dd0c0c;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.956);
-}
-
-/* Botão "Lista de Produtos" */
-#product-button {
-    position: fixed;
-    bottom: 40px; /* Distância do fundo */
-    left: 20px; /* Distância da esquerda */
-    background-color: #3d0bf3;
+#profile-section button,
+#profile-section input[type="submit"] {
+    background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 7px 10px;
-    border-radius: 3px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 10px 0;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 16px;
 }
 
-#product-button:hover {
-    background-color: #03dd12;
+#profile-section button:hover,
+#profile-section input[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
-/* Footer */
-footer.bottom-bar {
-    background-color: #06b603;
-    color: #070505;
+#profile-section .opc {
+    color: #fff;
+}
+
+#profile-section {
     text-align: center;
-    padding: 2px;
-    position: fixed;
+}
+
+#profile-section button,
+#profile-section input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 10px 5px; /* Adiciona espaçamento horizontal */
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block; /* Coloca os botões lado a lado */
+}
+
+#profile-section button:hover,
+#profile-section input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Adicionar este bloco para garantir que os botões fiquem alinhados */
+#profile-section form {
+    display: inline-block;
+    margin: 0 5px; /* Espaçamento entre os formulários */
+}
+
+#profile-section button a.opc {
+    color: #fff;
+}
+
+#product-list h2 {
+    margin: 30px 0 20px;
+    color: #007bff;
+    text-align: left;
+}
+
+#product-list table {
     width: 100%;
+    border-collapse: collapse;
+}
+
+#product-list table, th, td {
+    border: 1px solid #ddd;
+}
+
+#product-list th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+#product-list th {
+    background-color: #007bff;
+    color: white;
+}
+
+#product-list td button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#product-list td button:hover {
+    background-color: #218838;
+}
+
+#product-list td form {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+#product-list td button.excluir {
+    background-color: #dc3545;
+}
+
+#product-list td button.excluir:hover {
+    background-color: #c82333;
+}
+
+/* Estilo do Rodapé */
+footer.bottom-bar {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
     bottom: 0;
+    width: 100%;
+}
+
+#user-list {
+    margin-top: 20px;
+}
+
+#user-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#user-list th, #user-list td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+#user-list button {
+    margin-right: 10px;
 }

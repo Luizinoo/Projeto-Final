@@ -74,10 +74,6 @@ def delete_action():
 def confirma():
     return ctl.render('confirma')
 
-@app.route('/administracao', method='GET')
-def administracao():
-    return ctl.render('administracao')
-
 @app.route('/noticias', method='GET')
 def noticias():
     return ctl.render('noticias')
@@ -109,6 +105,39 @@ def update_product_action():
     quant = request.forms.get('quant')
     ctl.update_product(old_name, new_name, quant)
     return redirect('/membros')
+
+@app.route('/servicos', method='GET')
+def servicos_getter():
+    return ctl.render('servicos')
+
+@app.route('/comprar_produto', method='POST')
+def comprar_produto():
+    product_name = request.forms.get('product_name')
+    quantity = int(request.forms.get('quantity'))
+
+    # Usar o novo método da classe Application para obter o produto
+    product = ctl.get_product_by_name(product_name)
+    
+    # Converter a quantidade de produto para inteiro, caso seja uma string
+    if product and int(product.quantity) >= quantity:
+        new_quantity = int(product.quantity) - quantity
+        ctl.update_product(product_name, product_name, new_quantity)
+        redirect('/servicos')
+    else:
+        return "Quantidade insuficiente disponível", 400
+
+# Rota para editar a senha de um usuário
+@app.route('/admin/edit_user/<username>', method='POST')
+def edit_user_password_action(username):
+    new_password = request.forms.get('new_password')
+    ctl.update_user_password(username, new_password)
+
+# Rota para excluir um usuário
+@app.route('/admin/delete_user/<username>', method='POST')
+def delete_user_action(username):
+    ctl.delete_user_by_admin(username)
+
+
 
 #-----------------------------------------------------------------------------
 

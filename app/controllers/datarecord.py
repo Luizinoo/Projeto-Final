@@ -111,9 +111,10 @@ class UserRecord():
             print('O sistema não conseguiu gravar o arquivo (Produto)!')
 
     def add_product(self, name, quantity):
-        new_product = Product(name, quantity)
+        new_product = Product(name, int(quantity))  # Certifique-se de que a quantidade seja um inteiro
         self.__product.append(new_product)
         self.__write_products()
+
 
     def get_products(self):
         return self.__product
@@ -132,14 +133,13 @@ class UserRecord():
         product = self.get_product_by_name(old_name)
         if product:
             product.name = new_name
-            product.quantity = quant
+            product.quantity = int(quant)  # Converter a quantidade para inteiro
             self.__write_products()
 
-    
-    # def update_user_profile_image(self, user):
-    #     for existing_user in self.__user_accounts:
-    #         if existing_user.username == user.username:
-    #             existing_user.profile_image = user.profile_image
-    #             self.__write()
-    #             return
-    #     print(f'Usuário {user.username} não encontrado.')
+    # Método para obter um usuário pelo nome
+    def get_user_by_username(self, username):
+        for account_type in ['user_accounts', 'super_accounts']:
+            for user in self.__allusers[account_type]:
+                if user.username == username:
+                    return user
+        return None

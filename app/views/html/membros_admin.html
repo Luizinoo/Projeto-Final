@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membros - Administração</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/membros.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/home"><img src="/static/img/lg.png" alt="Logo"></a>
+            <div class="header-buttons">
+                <form action="/logout" method="post">
+                    <button type="submit">Sair</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div id="profile-section">
+            <h1>Administração de Usuários</h1>
+            <p>Bem-vindo, {{ current_user.username }} (Admin)</p>
+        </div>
+
+        <div id="user-list">
+            <h2>Lista de Usuários</h2>
+            <table>
+                <tr>
+                    <th>Nome de Usuário</th>
+                    <th>Ações</th>
+                </tr>
+                % for user in users:
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>
+                        <form action="/admin/edit_user/{{ user.username }}" method="POST" style="display:inline;">
+                            <input type="password" name="new_password" placeholder="Nova senha" required>
+                            <button type="submit">Editar Senha</button>
+                        </form>
+                        <form action="/admin/delete_user/{{ user.username }}" method="POST" style="display:inline;">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                % end
+            </table>
+        </div>
+    </main>
+    <footer class="bottom-bar">
+        © 2024 Sua Empresa. Todos os direitos reservados.
+    </footer>
+</body>
+</html>

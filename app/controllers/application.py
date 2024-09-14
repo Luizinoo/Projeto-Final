@@ -12,13 +12,12 @@ class Application:
             'edit': self.edit,
             'membros': self.membros,
             'login': self.login,
-            'administracao': self.administracao,
             'create': self.create,
             'confirma': self.confirma,
             'noticias': self.noticias,
             'produtos': self.produtos,
             'edit_product': self.edit_product,
-            'serviços': self.serviços
+            'servicos': self.servicos
         }
 
         self.__users = UserRecord()
@@ -75,11 +74,13 @@ class Application:
     def membros(self):
         self.update_users_list()
         current_user = self.getCurrentUserBySessionId()
-        self.__users.read_products()
-        products = self.__users.get_products()
-        if current_user:
+        if current_user and current_user.isAdmin():  # Verifica se é admin
+            user_accounts = self.__users.getUserAccounts()
+            return template('app/views/html/membros_admin', current_user=current_user, users=user_accounts)
+        else:
+            self.__users.read_products()
+            products = self.__users.get_products()
             return template('app/views/html/membros', transfered=True, current_user=current_user, products=products)
-        return template('app/views/html/membros', transfered=False, products=products)
 
     def is_authenticated(self, username):
         current_user = self.getCurrentUserBySessionId()
@@ -129,6 +130,10 @@ class Application:
         response.delete_cookie('session_id')
         self.update_users_list()
 
+    def get_product_by_name(self, name):
+        """Obtém um produto pelo nome"""
+        return self.__users.get_product_by_name(name)
+
     def add_product(self, name, quantity):
         self.__users.add_product(name, quantity)
         redirect('/membros')
@@ -141,41 +146,33 @@ class Application:
 
     def update_product(self, old_name, new_name, quant):
         self.__users.update_product(old_name, new_name, quant)
-        redirect('/membros')
 
     def delete_product(self, name):
         self.__users.remove_product(name)
         redirect('/membros')
 
-    # def upload_photo(self):
-    #     upload = request.files.get('photo')
-    #     if upload:
-    #         upload_dir = 'app/static/img/profiles'
-    #         if not os.path.exists(upload_dir):
-    #             os.makedirs(upload_dir)
-            
-    #         file_path = os.path.join(upload_dir, upload.filename)
-    #         upload.save(file_path)
-            
-    #         session_id = self.get_session_id()
-    #         user = self.__model.get_current_user(session_id)
-    #         if user:
-    #             user.profile_image = file_path
-    #             self.__model.update_user_profile_image(user)
-        
-    #     redirect('/membros')
+    def servicos(self):
+        self.__users.read_products()  # Certifica-se de carregar os produtos atualizados
+        products = self.__users.get_products()  # Obtém os produtos
+        return template('app/views/html/servicos', products=products)  # Renderiza a página de serviços com os produtos
 
-    # def serve_profile_image(self, filename):
-    #     return static_file(filename, root='app/static/img/profiles')
+    # Método para o administrador editar a senha de um usuário
+    def update_user_password(self, username, new_password):
+        self.__users.setUser(username, new_password)
+        redirect('/membros')
+
+    # Método para o administrador excluir um usuário
+    def delete_user_by_admin(self, username):
+        user = self.__users.get_user_by_username(username)
+        if user:
+            self.__users.removeUser(user)
+        redirect('/membros')
 
     def home(self):
         return template('app/views/html/home')
 
     def confirma(self):
         return template('app/views/html/confirma')
-    
-    def administracao(self):
-        return template('app/views/html/administracao')
 
     def produto(self):
         return template('app/views/html/produto')

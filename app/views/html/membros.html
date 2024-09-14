@@ -14,12 +14,14 @@
         <nav>
             <a class="logo" href="/home"><img src="/static/img/lg.png" alt="Logo"></a>
             <div class="header-buttons">
-                <li><a href="/administracao">Admin</a></li>
                 <form action="/edit" method="get">
                     <button type="submit">Atualizar Cadastro</button>
                 </form>
                 <form action="/delete" method="post">
                     <button type="submit">Apagar Conta</button>
+                </form>
+                <form action="/logout" method="post">
+                    <button type="submit">Sair</button>
                 </form>
             </div>
         </nav>
@@ -31,15 +33,6 @@
                 <h2>Dados do {{"Super" if current_user.isAdmin() else ""}} Usuário:</h2>
                 <p>Username: {{current_user.username}} </p>
             </div>
-            <form action="/logout" method="post" class="logout-form">
-                <button type="submit">Sair</button>
-            </form>
-            <form action="/delete" method="post">
-                <input value="Apagar conta" type="submit" />
-            </form>
-            <form action="/edit" method="get">
-                <button type="submit">Editar usuário</button>
-            </form>
             <button><a class="opc" href="/produtos">Produtos</a></button>
         </div>
 
