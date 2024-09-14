@@ -1,11 +1,10 @@
-from app.models.user_account import UserAccount
+from bottle import redirect, request, response, template
+from app.models.user_account import UserAccount, SuperAccount
 from app.models.product import Product
+from app.models.news import News
 from app.controllers.datarecord import UserRecord
-from bottle import template, redirect, request, response, static_file
-import os
 
 class Application:
-
     def __init__(self):
         self.pages = {
             'home': self.home,
@@ -21,55 +20,15 @@ class Application:
         }
 
         self.__users = UserRecord()
-        self.__current_loginusername = None
+        self.__sacola = []
 
-        self.product = None
-        self.edited = None
-        self.removed = None
-        self.created = None
-
-    def render(self, page, parameter=None):
-        content = self.pages.get(page)
-        if not parameter:
-            return content()
-        return content(parameter)
-
-    def getAuthenticatedUsers(self):
-        return self.__users.getAuthenticatedUsers()
-
-    def getCurrentUserBySessionId(self):
-        session_id = request.get_cookie('session_id')
-        return self.__users.getCurrentUser(session_id)
-
-    def create(self):
-        return template('app/views/html/create')
-
-    def delete(self):
-        current_user = self.getCurrentUserBySessionId()
-        user_accounts= self.__users.getUserAccounts()
-        return template('app/views/html/delete', user=current_user, accounts=user_accounts)
+    def home(self):
+        return template('app/views/html/home.html')
 
     def edit(self):
         current_user = self.getCurrentUserBySessionId()
-        user_accounts= self.__users.getUserAccounts()
-        return template('app/views/html/edit', user=current_user, accounts= user_accounts)
-
-    def login(self):
-        current_user = self.getCurrentUserBySessionId()
-        if current_user:
-            login_render = template('app/views/html/login', \
-            username=current_user.username, edited=self.edited, \
-            removed=self.removed, created=self.created)
-            self.edited = None
-            self.removed= None
-            self.created= None
-            return login_render
-        login_render = template('app/views/html/login', username=None, \
-        edited=self.edited, removed=self.removed, created=self.created)
-        self.edited = None
-        self.removed= None
-        self.created= None
-        return login_render
+        user_accounts = self.__users.getUserAccounts()
+        return template('app/views/html/edit.html', user=current_user, accounts=user_accounts)
 
     def membros(self):
         self.update_users_list()
@@ -82,53 +41,75 @@ class Application:
             products = self.__users.get_products()
             return template('app/views/html/membros', transfered=True, current_user=current_user, products=products)
 
-    def is_authenticated(self, username):
+    def login(self):
         current_user = self.getCurrentUserBySessionId()
         if current_user:
-            return username == current_user.username
-        return False
-
-    def authenticate_user(self, username, password):
-        session_id = self.__users.checkUser(username, password)
-        if session_id:
-            self.logout_user()
-            response.set_cookie('session_id', session_id, httponly=True, secure=True, max_age=3600)
             redirect('/membros')
-        redirect('/login')
+        return template('app/views/html/login.tpl')
 
-    def delete_user(self):
-        current_user = self.getCurrentUserBySessionId()
-        self.logout_user()
-        self.removed= self.__users.removeUser(current_user)
-        self.update_account_list()
-        print(f'Valor de retorno de self.removed: {self.removed}')
-        redirect('/login')
+    def process_login(self):
+        username = request.forms.get('username')
+        password = request.forms.get('password')
+        session_id = self.__users.checkUser(username, password)
+        
+        if session_id:
+            response.set_cookie('session_id', session_id, secret='sua-chave-secreta')
+            redirect('/membros')
+        else:
+            return template('app/views/html/login.tpl', error="Credenciais inválidas")
 
-    def insert_user(self, username, password):
-        self.created= self.__users.book(username, password,[])
-        print(f'Usuário criado: {self.created}')
-        self.update_account_list()
-        redirect('/login')
+    def create(self):
+        return template('app/views/html/create.html')
 
-    def update_user(self, username, password):
-        self.edited = self.__users.setUser(username, password)
-        redirect('/login')
+    def confirma(self):
+        return template('app/views/html/confirma.html')
 
-    def update_users_list(self):
-        print('Atualizando a lista de usuários conectados...')
-        users = self.__users.getAuthenticatedUsers()
-        users_list = [{'username': user.username} for user in users.values()]
+    def noticias(self):
+        self.__users.save_products_of_the_day()
+        news = self.__users.get_all_news()
+        products_file_path = "/static/files/products_of_the_day.json"
+        return template('app/views/html/noticias.html', news=news, products_file_path=products_file_path)
 
-    def update_account_list(self):
-        print('Atualizando a lista de usuários cadastrados...')
-        users = self.__users.getUserAccounts()
-        users_list = [{'username': user.username} for user in users]
+    def produtos(self):
+        return template('app/views/html/produtos.html')
 
-    def logout_user(self):
-        session_id = request.get_cookie('session_id')
-        self.__users.logout(session_id)
-        response.delete_cookie('session_id')
-        self.update_users_list()
+    def edit_product(self):
+        return template('app/views/html/edit_product.html')
+
+    def servicos(self):
+        products = self.get_products()
+        return template('app/views/html/servicos.html', products=products)
+
+    def review_cart(self):
+        total = self.calculate_total()
+        return template('app/views/html/review_cart.html', cart_products=self.__sacola, total_price=total)
+
+    def checkout(self):
+        total = self.calculate_total()
+        return template('app/views/html/checkout.html', cart_products=self.__sacola, total_price=total)
+
+    def generate_invoice(self):
+        total = self.calculate_total()
+        purchase_note = 'Compra realizada com sucesso!\n'
+        purchase_note += f'Total a pagar: R$ {total:.2f}\n{"-"*30}\n'
+        for product in self.__sacola:
+            purchase_note += f'Produto: {product.name}\n'
+            purchase_note += f'Quantidade: {product.quantity}\n'
+            purchase_note += f'Preço Unitário: R$ {product.price}\n'
+            purchase_note += f'Total: R$ {product.price * product.quantity}\n{"-"*30}\n'
+
+        for product in self.__sacola:
+            self.__users.remove_product(product.name)
+
+        self.__sacola = []
+
+        file_path = 'purchase_confirmation.txt'
+        with open(file_path, 'w') as file:
+            file.write(purchase_note)
+        
+        response.content_type = 'text/plain'
+        response.headers['Content-Disposition'] = f'attachment; filename="{file_path}"'
+        return open(file_path, 'r').read()
 
     def get_product_by_name(self, name):
         """Obtém um produto pelo nome"""
@@ -147,8 +128,9 @@ class Application:
     def update_product(self, old_name, new_name, quant):
         self.__users.update_product(old_name, new_name, quant)
 
-    def delete_product(self, name):
+    def remove_product(self, name):
         self.__users.remove_product(name)
+        self.removed = f'O produto {name} foi removido com sucesso.'
         redirect('/membros')
 
     def servicos(self):

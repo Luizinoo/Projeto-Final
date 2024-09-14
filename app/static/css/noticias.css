@@ -1,126 +1,88 @@
-* {
+/* Estilos para a barra superior */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007BFF; /* Azul */
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.top-bar .logo img {
+    height: 40px; /* Ajuste o tamanho do logo conforme necessário */
+}
+
+.nav-list {
+    display: flex;
+    gap: 20px;
+    list-style: none;
     margin: 0;
     padding: 0;
 }
 
-a {
-    color: #fff;
+.nav-list a {
     text-decoration: none;
-    transition: 0.3s;
+    color: white;
+    font-weight: bold;
 }
 
-a:hover {
-    opacity: 0.7;
+.nav-list a:hover {
+    text-decoration: underline;
 }
 
-.logo {
-    font-size: 24px;
-    text-transform: uppercase;
-    letter-spacing: 4px;
+/* Estilos para o rodapé */
+.bottom-bar {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #007BFF; /* Azul */
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
 }
 
-nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-family: system-ui, apple-system, Helvetica, Arial, sans-serif;
-    background: #22d33a;
-    height: 5vh;
+/* Estilos para o botão */
+.button {
+    background-color: #007BFF; /* Azul */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px 0;
 }
 
-main {
-    background: url("/static/img/adm.png") no-repeat center center;
-    background-size: cover;
-    height: 92vh;
+.button:hover {
+    background-color: #0056b3; /* Azul escuro */
 }
 
-.nav-list {
-    list-style: none;
-    display: flex;
-}
-
-.nav-list li {
-    letter-spacing: 3px;
-    margin-left: 32px;
-}
-
-.mobile-menu {
-    display: none;
+/* Estilos para o carrossel */
+.carousel-button {
+    background-color: #007BFF; /* Azul */
+    border: none;
+    color: white;
+    padding: 10px;
     cursor: pointer;
 }
 
-.mobile-menu div {
-    width: 32px;
-    height: 2px;
-    background: #fff;
-    margin: 8px;
-    transition: 0.3s;
+.carousel-button:hover {
+    background-color: #0056b3; /* Azul escuro */
 }
 
-@media (max-width: 999px) {
-    body {
-        overflow-x: hidden;
-    }
-    .nav-list {
-        position: absolute;
-        top: 8vh;
-        right: 0;
-        width: 50vw;
-        height: 92vh;
-        background: #31b513;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in;
-    }
-    .nav-list li {
-        margin-left: 0;
-        opacity: 0;
-    }
-    .mobile-menu {
-        display: block;
-    }
+.carousel-container {
+    /* Adicione estilos para o contêiner do carrossel aqui */
 }
 
-.nav-list.active {
-    transform: translateX(0);
+.carousel-slide {
+    /* Adicione estilos para o slide do carrossel aqui */
 }
 
-@keyframes navLinkFade {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-.bottom-bar {
-    position: fixed; /* Fixa o elemento na tela */
-    left: 0; /* Alinha a barra com a borda esquerda da tela */
-    bottom: 0; /* Posiciona na parte inferior da tela */
-    width: 150%; /* Faz a barra ocupar toda a largura da tela */
-    height: 2vh; /* Define a altura da barra como 5% da altura da janela de visualização */
-    background: #2fd745ec; /* Define a cor de fundo, mesma que você usou no nav */
-    display: flex; /* Usa flexbox para organizar o conteúdo */
-    justify-content: center; /* Centraliza o conteúdo horizontalmente */
-    align-items: center; /* Centraliza o conteúdo verticalmente */
-    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif; /* Define a fonte */
-    color: rgb(243, 243, 247); /* Define a cor do texto como branca para contraste */
-    z-index: 999; /* Garante que a barra fique acima de outros elementos na página */
-
+.carousel-item {
+    /* Adicione estilos para cada item do carrossel aqui */
 }
 
-.mobile-menu.active .line1 {
-    transform: rotate(-45deg) translate(-8px, 8px);
-}
-
-.mobile-menu.active .line2 {
-    opacity: 0;
-}
-
-.mobile-menu.active .line3 {
-    transform: rotate(45deg) translate(-5px, -7px);
+.carousel-image {
+    /* Adicione estilos para as imagens do carrossel aqui */
 }

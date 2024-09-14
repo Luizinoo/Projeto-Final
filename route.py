@@ -1,78 +1,68 @@
+from bottle import Bottle, request, redirect, static_file, template, response, run
 from app.controllers.application import Application
-from bottle import Bottle, static_file, run, request, response, redirect
 
 app = Bottle()
 ctl = Application()
 
-#-----------------------------------------------------------------------------
-# Rotas:
+# Rota para exibir notícias
+@app.route('/noticias')
+def noticias():
+    return ctl.noticias()
 
-@app.route("/")
-def inicio():
-    redirect('/home')
+# Rota para adicionar uma nova notícia
+@app.route('/add_noticia', method='POST')
+def add_noticia():
+    title = request.forms.get('title')
+    content = request.forms.get('content')
+    upload = request.files.get('upload')
+    
+    file_path = None
+    if upload:
+        file_path = f"app/static/uploads/{upload.filename}"
+        upload.save(file_path)
+    
+    ctl.add_news(title, content, file_path)
+    return redirect('/noticias')
 
-@app.route('/static/<filepath:path>')
-def serve_static(filepath):
-    return static_file(filepath, root='./app/static')
+# Rota para baixar arquivos
+@app.route('/download/<filename>')
+def download(filename):
+    return static_file(filename, root='app/static/uploads', download=filename)
 
-@app.route('/home', method='GET')
+# Home
+@app.route('/')
 def home():
-    return ctl.render('home')
+    return ctl.home()
 
-@app.route('/membros', method='GET')
-def membros_getter():
-    return ctl.render('membros')
+# Editar
+@app.route('/edit')
+def edit():
+    return ctl.edit()
 
-@app.route('/login', method='GET')
-def login_getter():
-    return ctl.render('login')
+# Exibição de membros
+@app.route('/membros')
+def membros():
+    current_user = request.get_cookie('session_id', secret='sua-chave-secreta')
+    if not current_user:
+        return redirect('/login')
+    return ctl.membros()
 
-@app.route('/edit', method='GET')
-def edit_getter():
-    return ctl.render('edit')
+# Rota de login
+@app.route('/login', method=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return ctl.process_login()
+    return ctl.login()
 
-@app.route('/login', method='POST')
-def login_action():
-    username = request.forms.get('username')
-    password = request.forms.get('password')
-    ctl.authenticate_user(username, password)
+# Criar
+@app.route('/create')
+def create():
+    return ctl.create()
 
-@app.route('/edit', method='POST')
-def edit_action():
-    username = request.forms.get('username')
-    password = request.forms.get('password')
-    print(username + ' sendo atualizado...')
-    ctl.update_user(username, password)
-    return ctl.render('edit')
-
-@app.route('/create', method='GET')
-def create_getter():
-    return ctl.render('create')
-
-@app.route('/create', method='POST')
-def create_action():
-    username = request.forms.get('username')
-    password = request.forms.get('password')
-    ctl.insert_user(username, password)
-    return ctl.render('login')
-
-@app.route('/logout', method='POST')
-def logout_action():
-    ctl.logout_user()
-    return ctl.render('login')
-
-@app.route('/delete', method='GET')
-def delete_getter():
-    return ctl.render('delete')
-
-@app.route('/delete', method='POST')
-def delete_action():
-    ctl.delete_user()
-    return ctl.render('login')
-
-@app.route('/confirma', method='GET')
+# Confirmar
+@app.route('/confirma')
 def confirma():
-    return ctl.render('confirma')
+    return ctl.confirma()
 
 @app.route('/noticias', method='GET')
 def noticias():
@@ -94,16 +84,20 @@ def delete_product_action(name):
     ctl.delete_product(name)
     return redirect('/membros')
 
-@app.route('/edit_product/<name>', method='POST')
-def edit_product_getter(name):
-    return ctl.edit_product(name)
-
-@app.route('/update_product', method='POST')
-def update_product_action():
+# Rota para editar produtos
+@app.route('/edit_product', method='POST')
+def edit_product():
     old_name = request.forms.get('old_name')
     new_name = request.forms.get('new_name')
-    quant = request.forms.get('quant')
-    ctl.update_product(old_name, new_name, quant)
+    quantity = int(request.forms.get('quantity'))
+    ctl.edit_product(old_name, new_name, quantity)
+    return redirect('/membros')
+
+# Rota para remover produtos
+@app.route('/remove_product', method='POST')
+def remove_product():
+    name = request.forms.get('name')
+    ctl.remove_product(name)
     return redirect('/membros')
 
 @app.route('/servicos', method='GET')

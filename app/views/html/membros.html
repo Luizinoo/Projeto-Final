@@ -7,7 +7,6 @@
     <title>Membros</title>
     <link rel="stylesheet" type="text/css" href="/static/css/membros.css" />
     <script src="/static/js/mobile-navbar.js" defer></script>
-    <!-- <script src="/static/js/profile.js" defer></script> -->
 </head>
 <body>
     <header>
@@ -17,7 +16,7 @@
                 <form action="/edit" method="get">
                     <button type="submit">Atualizar Cadastro</button>
                 </form>
-                <form action="/delete" method="post">
+                <form action="/delete" method="post" style="display:inline;">
                     <button type="submit">Apagar Conta</button>
                 </form>
                 <form action="/logout" method="post">
@@ -39,25 +38,29 @@
         <div id="product-list">
             <h2>Lista de Produtos</h2>
             <table>
-                <tr>
-                    <th>Nome do Produto</th>
-                    <th>Quantidade</th>
-                    <th>Ações</th>
-                </tr>
-                % for product in products:
-                <tr>
-                    <td>{{ product.name }}</td>  <!-- Use o nome correto do atributo -->
-                    <td>{{ product.quantity }}</td>
-                    <td>
-                        <form action="/edit_product/{{ product.name }}" method="POST" style="display:inline;">
-                            <button type="submit">Editar</button>
-                        </form>
-                        <form action="/delete_product/{{ product.name }}" method="POST" style="display:inline;">
-                            <button type="submit">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-                % end
+                <thead>
+                    <tr>
+                        <th>Nome do Produto</th>
+                        <th>Quantidade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for product in products:
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>
+                            <form action="/edit_product/{{ product.name }}" method="POST" style="display:inline;">
+                                <button type="submit">Editar</button>
+                            </form>
+                            <form action="/delete_product/{{ product.name }}" method="POST" style="display:inline;">
+                                <button type="submit">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                    % end
+                </tbody>
             </table>
         </div>
     </main>

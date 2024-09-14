@@ -1,43 +1,44 @@
+from app.models.news import News
 from app.models.user_account import UserAccount, SuperAccount
 from app.models.product import Product
 import json
 import uuid
 
-
-class UserRecord():
+class UserRecord:
     def __init__(self):
-        self.__allusers= {'user_accounts': [], 'super_accounts': []}
+        self.__allusers = {'user_accounts': [], 'super_accounts': []}
         self.__authenticated_users = {}
+        self.__products = []
+        self.__news = []
         self.read('user_accounts')
         self.read('super_accounts')
-        self.read_products()
-        self.__product = []
+        self.read_products()  # Corrigido: Removido 'self' e chamado corretamente
+        self.read_news()
 
     # Funções para usuários
-    def read(self,database):
-        account_class = SuperAccount if (database == 'super_accounts' ) else UserAccount
+    def read(self, database):
+        account_class = SuperAccount if database == 'super_accounts' else UserAccount
         try:
             with open(f"app/controllers/db/{database}.json", "r") as fjson:
                 user_d = json.load(fjson)
-                self.__allusers[database]= [account_class(**data) for data in user_d]
+                self.__allusers[database] = [account_class(**data) for data in user_d]
         except FileNotFoundError:
             self.__allusers[database].append(account_class('Guest', '000000'))
 
-    def __write(self,database):
+    def __write(self, database):
         try:
             with open(f"app/controllers/db/{database}.json", "w") as fjson:
-                user_data = [vars(user_account) for user_account in \
-                self.__allusers[database]]
+                user_data = [vars(user_account) for user_account in self.__allusers[database]]
                 json.dump(user_data, fjson)
                 print(f'Arquivo gravado com sucesso (Usuário)!')
         except FileNotFoundError:
             print('O sistema não conseguiu gravar o arquivo (Usuário)!')
 
-    def setUser(self,username,password):
+    def setUser(self, username, password):
         for account_type in ['user_accounts', 'super_accounts']:
             for user in self.__allusers[account_type]:
                 if username == user.username:
-                    user.password= password
+                    user.password = password
                     print(f'O usuário {username} foi editado com sucesso.')
                     self.__write(account_type)
                     return username
@@ -66,17 +67,11 @@ class UserRecord():
     def getUserAccounts(self):
         return self.__allusers['user_accounts']
 
-
-    def getCurrentUser(self,session_id):
-        if session_id in self.__authenticated_users:
-            return self.__authenticated_users[session_id]
-        else:
-            return None
-
+    def getCurrentUser(self, session_id):
+        return self.__authenticated_users.get(session_id, None)
 
     def getAuthenticatedUsers(self):
         return self.__authenticated_users
-
 
     def checkUser(self, username, password):
         for account_type in ['user_accounts', 'super_accounts']:
@@ -87,24 +82,23 @@ class UserRecord():
                     return session_id  # Retorna o ID de sessão para o usuário
         return None
 
-
     def logout(self, session_id):
         if session_id in self.__authenticated_users:
-            del self.__authenticated_users[session_id] # Remove o usuário logado
+            del self.__authenticated_users[session_id]  # Remove o usuário logado
 
     # Funções para produtos
     def read_products(self):
         try:
             with open("app/controllers/db/product.json", "r") as arquivo_json:
                 product_data = json.load(arquivo_json)
-                self.__product = [Product(**data) for data in product_data]
+                self.__products = [Product(**data) for data in product_data]
         except FileNotFoundError:
-            self.__product = []
+            self.__products = []
 
     def __write_products(self):
         try:
             with open("app/controllers/db/product.json", "w") as arquivo_json:
-                prod_data = [vars(product) for product in self.__product]
+                prod_data = [vars(product) for product in self.__products]
                 json.dump(prod_data, arquivo_json)
                 print(f'Arquivo gravado com sucesso (Produto)!')
         except FileNotFoundError:
@@ -117,14 +111,14 @@ class UserRecord():
 
 
     def get_products(self):
-        return self.__product
+        return self.__products
 
     def remove_product(self, name):
-        self.__product = [p for p in self.__product if p.name != name]
+        self.__products = [p for p in self.__products if p.name != name]
         self.__write_products()
 
     def get_product_by_name(self, name):
-        for product in self.__product:
+        for product in self.__products:
             if product.name == name:
                 return product
         return None

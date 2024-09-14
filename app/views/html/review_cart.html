@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Revisão do Carrinho</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .button {
+            background-color: #4CAF50; /* Verde */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tfoot td {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Revisão do Carrinho</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome do Produto</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            % for product in cart_products:
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>R$ {{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>R$ {{ product.price * product.quantity }}</td>
+            </tr>
+            % end
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total Geral:</td>
+                <td>R$ {{ total_price }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <form action="/checkout" method="POST">
+        <button type="submit" class="button">Confirmar Compra</button>
+    </form>
+    <form action="/" method="GET">
+        <button type="submit" class="button">Voltar à Página Inicial</button>
+    </form>
+</body>
+</html>
