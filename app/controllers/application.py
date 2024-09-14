@@ -12,10 +12,8 @@ class Application:
             'edit': self.edit,
             'membros': self.membros,
             'login': self.login,
-            'administracao': self.administracao,
             'create': self.create,
-            'confirma': self.confirma,
-            'noticias': self.noticias,
+            'criadores': self.criadores,
             'produtos': self.produtos,
             'edit_product': self.edit_product,
             'servicos': self.servicos
@@ -181,8 +179,8 @@ class Application:
     def produto(self):
         return template('app/views/html/produto')
 
-    def noticias(self):
-        return template('app/views/html/noticias')
+    def criadores(self):
+        return template('app/views/html/criadores')
 
     def produtos(self):
         products = self.__users.get_products()
