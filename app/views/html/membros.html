@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico" />
-    <title>Membros</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/membros.css" />
-    <script src="/static/js/mobile-navbar.js" defer></script>
-</head>
-<body>
-    <header>
-        <nav>
-            <a class="logo" href="/home"><img src="/static/img/lg.png" alt="Logo"></a>
-            <div class="header-buttons">
-                <form action="/edit" method="get">
-                    <button type="submit">Atualizar Cadastro</button>
-                </form>
-                <form action="/delete" method="post" style="display:inline;">
-                    <button type="submit">Apagar Conta</button>
-                </form>
-                <form action="/logout" method="post">
-                    <button type="submit">Sair</button>
-                </form>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico" />
+        <title>Membros</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/membros.css" />
+        <script src="/static/js/mobile-navbar.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a class="logo" href="/home"><img src="/static/img/lg.png" alt="Logo"></a>
+                <div class="header-buttons">
+                    <form action="/edit" method="get">
+                        <button type="submit">Atualizar Cadastro</button>
+                    </form>
+                    <form action="/delete" method="post" style="display:inline;">
+                        <button type="submit">Apagar Conta</button>
+                    </form>
+                    <form action="/logout" method="post">
+                        <button type="submit">Sair</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div id="profile-section">
+                <h1>Meu Perfil</h1>
+                <div>
+                    <h2>Dados do {{"Super" if current_user.isAdmin() else ""}} Usuário:</h2>
+                    <p>Username: {{current_user.username}} </p>
+                </div>
+                <button><a class="opc" href="/produtos">Produtos</a></button>
             </div>
-        </nav>
-    </header>
-    <main>
-        <div id="profile-section">
-            <h1>Meu Perfil</h1>
-            <div>
-                <h2>Dados do {{"Super" if current_user.isAdmin() else ""}} Usuário:</h2>
-                <p>Username: {{current_user.username}} </p>
-            </div>
-            <button><a class="opc" href="/produtos">Produtos</a></button>
-        </div>
 
         <div id="product-list">
             <h2>Lista de Produtos</h2>
@@ -41,7 +41,7 @@
                 <thead>
                     <tr>
                         <th>Nome do Produto</th>
-                        <th>Quantidade em Estoque</th>
+                        <th>Quantidade</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -67,5 +67,4 @@
     <footer class="bottom-bar">
         © 2024 Sua Empresa. Todos os direitos reservados.
     </footer>
-</body>
 </html>

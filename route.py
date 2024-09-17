@@ -78,9 +78,9 @@ def confirma():
 def administracao():
     return ctl.render('administracao')
 
-@app.route('/noticias', method='GET')
-def noticias():
-    return ctl.render('noticias')
+@app.route('/criadores', method='GET')
+def criadores():
+    return ctl.render('criadores')
 
 @app.route('/produtos', method='GET')
 def produtos_getter():
