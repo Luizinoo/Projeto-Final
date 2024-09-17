@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="static/img/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="/static/css/servicos.css" />
-    <title>Serviços - Venda de Produtos</title>
+    <title>Serviços</title>
+    <style>
+   
+    </style>
 </head>
 <body>
-    <h1>Serviços - Produtos à Venda</h1>
-    
-    <h2>Produtos Disponíveis</h2>
+    <a class="logo" href="/"> <img src="/static/img/lg.png" alt=""> </a>
+    <h1>Sacolão</h1>
+    <h2>🛒 PRODUTOS DO DIA 🛒</h2>
+
     <ul>
         % if products:
             % for product in products:
                 <li>
                     <strong>Nome:</strong> {{product.name}} <br>
-                    <strong>Quantidade:</strong> {{product.quantity}} <br>
+                    <strong>ESTOQUE:</strong> {{product.quantity}} <br>
                     <!-- Aqui, você pode adicionar um botão para comprar -->
-                    <form action="/comprar_produto" method="post">
+                    <form action="/comprar_produto" method="post" onsubmit="showConfirmationMessage(event)">
                         <input type="hidden" name="product_name" value="{{product.name}}">
                         <label for="quantity">Quantidade:</label>
                         <input type="number" name="quantity" min="1" max="{{product.quantity}}" required>
@@ -29,7 +34,9 @@
             <p>Não há produtos disponíveis no momento.</p>
         % end
     </ul>
-
-    <a href="/home">Voltar para Home</a>
+     <footer class="bottom-bar">
+        <!-- Conteúdo da barra, como links ou informações de copyright -->
+         © 2024 Sua Empresa. Todos os direitos reservados.
+    </footer>
 </body>
 </html>

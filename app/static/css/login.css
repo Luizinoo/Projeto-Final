@@ -8,31 +8,44 @@
 
 body {
     background-color: #f4f4f4;
+    color: #fef8f8;
+    font-size: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    color: #333;
 }
 
 header {
     width: 100%;
-    background-color: #fff;
-    padding: 10px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #23f449;
+    padding: 1px 0;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
     text-align: center;
 }
 
-header nav .logo img {
-    width: 150px;
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 7px;
+}
+
+.logo img {
+    width: 100px;
     height: auto;
 }
 
 main {
     width: 100%;
-    max-width: 400px;
-    padding: 20px;
+    max-width: 500px;
+    padding: 100px;
 }
 
 #login {
@@ -45,14 +58,22 @@ main {
 .card {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 80px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    height: 70px;           /* Exemplo de altura do contêiner, ajuste conforme necessário */
 }
 
 .card-header h2 {
     font-size: 24px;
-    text-align: center;
     color: #333;
+    text-align: center;
 }
+
 
 .card-content {
     display: flex;
@@ -74,7 +95,7 @@ main {
 }
 
 .card-content-area input:focus {
-    border-color: #0066cc;
+    border-color: #101010;
     outline: none;
 }
 
@@ -97,16 +118,35 @@ main {
     background-color: #005bb5;
 }
 
-.bottom-bar {
+footer.bottom-bar {
+    margin-top: 180px;
     text-align: center;
-    margin-top: 20px;
-    font-size: 12px;
-    color: #999;
+    background-color: #22fd00;
+    color: rgb(28, 5, 110);
+    padding: 10px; /* Aumentei um pouco o padding para melhor visualização */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    main {
-        max-width: 90%;
+/* Mobile Styles */
+@media (max-width: 968px) {
+    .card-content {
+        gap: 10px;
+    }
+
+    .card-header h2 {
+        font-size: 20px;
+    }
+
+    .card-footer .submit {
+        width: 100%;
+        padding: 15px;
+    }
+
+    footer.bottom-bar {
+        padding: 20px;
     }
 }
