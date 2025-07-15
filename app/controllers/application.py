@@ -13,7 +13,7 @@ class Application:
             'membros': self.membros,
             'login': self.login,
             'create': self.create,
-            'criadores': self.criadores,
+            'criadores': self.criadore,
             'produtos': self.produtos,
             'edit_product': self.edit_product,
             'servicos': self.servicos
